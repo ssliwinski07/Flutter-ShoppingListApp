@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
 import 'package:shopping_reminder/localizations/app_localization.dart';
-import 'package:shopping_reminder/res/color/app_colors.dart';
+import 'package:shopping_reminder/res/colors/app_colors.dart';
 
 class ShoppingListsView extends StatefulWidget {
   const ShoppingListsView({super.key});

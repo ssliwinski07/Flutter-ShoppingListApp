@@ -23,17 +23,3 @@ class LocaleFormats {
     return defaultLocale;
   }
 }
-
-
-
-// class Locale {
-//   static dateFormat(DateTime date, {bool ignoreTime = false}) {
-//     String formatWithHours = FORMAT_WITH_HOURS;
-//     String formatWithoutHours = FORMAT_WITHOUT_HOURS;
-
-//     if (ignoreTime == true) {
-//       return DateFormat(formatWithoutHours).format(date);
-//     }
-//     return DateFormat(formatWithHours).format(date);
-//   }
-// }
