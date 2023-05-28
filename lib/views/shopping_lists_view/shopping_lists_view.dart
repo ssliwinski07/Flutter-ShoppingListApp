@@ -25,7 +25,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
           children: <Widget>[
             GestureDetector(
               child: const Icon(Icons.arrow_back_ios),
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.pop(context, true),
             ),
             const Text(AppLocalization.shoppingLists),
             const SizedBox(width: 40),

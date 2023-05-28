@@ -60,13 +60,15 @@ class _MainScreenViewState extends State<MainScreenView> {
               height: 50,
               width: 250,
               onTap: () async {
-                await Navigator.push(
+                bool result = await Navigator.push(
                   context,
                   PageRouteBuilder(
                     pageBuilder: (_, __, ___) => const ShoppingListsView(),
                   ),
                 );
-                setState(() {});
+                if (result == true) {
+                  setState(() {});
+                }
               },
               buttonTitle: const Text(
                 AppLocalization.begin,
