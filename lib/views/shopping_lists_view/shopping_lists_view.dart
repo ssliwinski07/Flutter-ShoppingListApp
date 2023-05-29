@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
 import 'package:shopping_reminder/localizations/app_localization.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
+import 'package:shopping_reminder/widgets/shopping_list/shopping_list.dart';
 
 class ShoppingListsView extends StatefulWidget {
   const ShoppingListsView({super.key});
@@ -19,33 +20,71 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            GestureDetector(
-              child: const Icon(Icons.arrow_back_ios),
-              onTap: () => Navigator.pop(context, true),
-            ),
-            const Text(AppLocalization.shoppingLists),
-            const SizedBox(width: 40),
-            Column(
-              children: [
-                const Text(
-                  AppLocalization.todayIs,
+      body: NestedScrollView(
+        floatHeaderSlivers: true,
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          SliverAppBar(
+            floating: true,
+            snap: true,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                GestureDetector(
+                  child: const Icon(Icons.arrow_back_ios),
+                  onTap: () => Navigator.pop(context, true),
                 ),
-                Text(
-                  '${LocaleFormats.formatDateTime(_today)}',
-                ),
+                const Text(AppLocalization.shoppingLists),
+                const SizedBox(width: 40),
+                Column(
+                  children: [
+                    const Text(
+                      AppLocalization.todayIs,
+                    ),
+                    Text(
+                      '${LocaleFormats.formatDateTime(_today)}',
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
-        ),
-        toolbarHeight: 90,
-        elevation: 10.0,
-        automaticallyImplyLeading: false,
-        backgroundColor: AppColors.green,
+            ),
+            toolbarHeight: 90,
+            elevation: 10.0,
+            automaticallyImplyLeading: false,
+            backgroundColor: AppColors.green,
+          ),
+        ],
+        body: ShoppingList(),
       ),
     );
   }
 }
+
+// backgroundColor: AppColors.white,
+//       appBar: AppBar(
+//         title: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: <Widget>[
+//             GestureDetector(
+//               child: const Icon(Icons.arrow_back_ios),
+//               onTap: () => Navigator.pop(context, true),
+//             ),
+//             const Text(AppLocalization.shoppingLists),
+//             const SizedBox(width: 40),
+//             Column(
+//               children: [
+//                 const Text(
+//                   AppLocalization.todayIs,
+//                 ),
+//                 Text(
+//                   '${LocaleFormats.formatDateTime(_today)}',
+//                 ),
+//               ],
+//             )
+//           ],
+//         ),
+//         toolbarHeight: 90,
+//         elevation: 10.0,
+//         automaticallyImplyLeading: false,
+//         backgroundColor: AppColors.green,
+//       ),
+//       body: ShoppingList(),
