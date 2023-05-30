@@ -6,7 +6,7 @@ import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart'
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoContentInfoWidget extends StatelessWidget {
-  NoContentInfoWidget({
+  const NoContentInfoWidget({
     super.key,
     this.onTap,
     this.isAddingButtonVisible = false,

@@ -53,7 +53,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
             backgroundColor: AppColors.green,
           ),
         ],
-        body: ShoppingList(),
+        body: const ShoppingList(),
       ),
     );
   }

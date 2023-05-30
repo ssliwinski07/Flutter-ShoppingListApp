@@ -54,7 +54,7 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
                 },
                 child: Text(
                   AppLocalizations.of(context).cancel,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 226, 81, 70),
                   ),
                 ),

@@ -3,7 +3,7 @@ import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 
 class ShoppingListItem extends StatefulWidget {
-  ShoppingListItem({
+  const ShoppingListItem({
     super.key,
     this.shoppingItem,
     this.onDelete,
