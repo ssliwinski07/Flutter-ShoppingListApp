@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
-import 'package:shopping_reminder/localizations/app_localization.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShoppingListsView extends StatefulWidget {
   const ShoppingListsView({super.key});
@@ -33,12 +33,12 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                   child: const Icon(Icons.arrow_back_ios),
                   onTap: () => Navigator.pop(context, true),
                 ),
-                const Text(AppLocalization.shoppingLists),
+                Text(AppLocalizations.of(context).shoppingLists),
                 const SizedBox(width: 40),
                 Column(
                   children: [
-                    const Text(
-                      AppLocalization.todayIs,
+                    Text(
+                      AppLocalizations.of(context).todayIs,
                     ),
                     Text(
                       '${LocaleFormats.formatDateTime(_today)}',

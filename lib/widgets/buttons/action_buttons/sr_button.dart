@@ -5,7 +5,7 @@ class SRButton extends StatelessWidget {
       {required this.color,
       required this.onTap,
       required this.width,
-      required this.height,
+      this.height,
       required this.borderRadius,
       required this.buttonTitle,
       super.key});

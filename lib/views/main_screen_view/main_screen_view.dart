@@ -4,11 +4,11 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
 import 'package:shopping_reminder/helpers/constants.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/localizations/app_localization.dart';
 import 'package:shopping_reminder/view_models/main_screen_view_model.dart';
 import 'package:shopping_reminder/views/shopping_lists_view/shopping_lists_view.dart';
 import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
 import 'package:shopping_reminder/widgets/loading_screen_animated_widgets/loading_screen_animated_icon.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -72,9 +72,9 @@ class _MainScreenViewState extends State<MainScreenView> {
                   setState(() {});
                 }
               },
-              buttonTitle: const Text(
-                AppLocalization.begin,
-                style: TextStyle(color: AppColors.white, fontSize: 20),
+              buttonTitle: Text(
+                AppLocalizations.of(context).begin,
+                style: const TextStyle(color: AppColors.white, fontSize: 20),
               ),
             ),
           ],

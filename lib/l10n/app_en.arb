@@ -1,0 +1,30 @@
+{
+  "begin": "Begin",
+  "@begin": {
+    "description": "The conventional newborn programmer greeting"
+  },
+   "shoppingLists": "Shopping lists",
+  "@shoppingLists": {
+    "description": "The conventional newborn programmer greeting"
+  },
+   "todayIs": "Today is",
+  "@todayIs": {
+    "description": "The conventional newborn programmer greeting"
+  },
+   "noContent": "No content",
+  "@noContent": {
+    "description": "The conventional newborn programmer greeting"
+  },
+   "startAdding": "Add item",
+  "@startAdding": {
+    "description": "The conventional newborn programmer greeting"
+  },
+   "add": "Add",
+  "@add": {
+    "description": "The conventional newborn programmer greeting"
+  },
+   "cancel": "Cancel",
+  "@cancel": {
+    "description": "The conventional newborn programmer greeting"
+  }
+}

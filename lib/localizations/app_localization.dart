@@ -4,4 +4,6 @@ class AppLocalization {
   static const String todayIs = 'Today is';
   static const String noContent = 'No content';
   static const String startAdding = 'Start adding items';
+  static const String add = 'Add';
+  static const String cancel = 'Cancel';
 }

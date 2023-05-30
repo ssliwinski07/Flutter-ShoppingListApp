@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
 import 'package:shopping_reminder/views/main_screen_view/main_screen_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   await initializeDateFormatting(LocaleFormats.getLocale());
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       home: MainScreenView(),
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

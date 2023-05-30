@@ -33,15 +33,15 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 _isTapped = !_isTapped;
                 setState(() {});
               },
-              icon: Icon(Icons.delete_forever),
+              icon: const Icon(Icons.delete_forever),
               color: Colors.white,
             ),
           ),
         ),
         AnimatedContainer(
           color: Colors.white,
-          width: _isTapped ? 350 : MediaQuery.of(context).size.width,
-          duration: const Duration(milliseconds: 500),
+          width: _isTapped ? 330 : MediaQuery.of(context).size.width,
+          duration: const Duration(milliseconds: 400),
           child: ListTile(
               leading: GestureDetector(
                 onTap: () {
