@@ -36,6 +36,7 @@ dependencies:
   flutter_mobx: ^2.0.6+5
   shared_preferences: ^2.1.1
   mobx_codegen: ^2.3.0
+  build_runner: ^2.4.4
   flutter_localizations:
     sdk: flutter
     
@@ -49,6 +50,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

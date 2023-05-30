@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 
 class AddingItemsWidget extends StatefulWidget {
-  const AddingItemsWidget({super.key, this.onTap});
+  const AddingItemsWidget({super.key, this.store});
 
-  final Function(String text)? onTap;
+  final ShoppingItemsStore? store;
 
   @override
   State<AddingItemsWidget> createState() => _AddingItemsWidgetState();
@@ -12,12 +13,19 @@ class AddingItemsWidget extends StatefulWidget {
 
 class _AddingItemsWidgetState extends State<AddingItemsWidget> {
   final TextEditingController _textController = TextEditingController();
+
   bool _isTextEmpty = true;
 
   @override
   void initState() {
     super.initState();
     _textController.addListener(_textListener);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _textController.dispose();
   }
 
   @override
@@ -66,7 +74,8 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
                 onTap: _isTextEmpty
                     ? null
                     : () {
-                        widget.onTap!(_textController.text);
+                        widget.store?.addToList(_textController.text);
+
                         Navigator.pop(context);
                       },
                 child: Text(

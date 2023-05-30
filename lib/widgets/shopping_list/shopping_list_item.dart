@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 
@@ -6,11 +7,11 @@ class ShoppingListItem extends StatefulWidget {
   const ShoppingListItem({
     super.key,
     this.shoppingItem,
-    this.onDelete,
+    this.store,
   });
 
   final ShoppingItemModel? shoppingItem;
-  final VoidCallback? onDelete;
+  final ShoppingItemsStore? store;
 
   @override
   State<ShoppingListItem> createState() => _ShoppingListItemState();
@@ -28,10 +29,13 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
           color: Colors.red,
           child: ListTile(
             trailing: IconButton(
-              onPressed: () {
-                widget.onDelete!();
-                _isTapped = !_isTapped;
-                setState(() {});
+              onPressed: () async {
+                setState(() {
+                  Future.delayed(const Duration(milliseconds: 400)).then((_) {
+                    _isTapped = !_isTapped;
+                    widget.store?.removeFromList(widget.shoppingItem!);
+                  });
+                });
               },
               icon: const Icon(Icons.delete_forever),
               color: Colors.white,
