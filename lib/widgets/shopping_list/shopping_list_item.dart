@@ -8,10 +8,12 @@ class ShoppingListItem extends StatefulWidget {
     super.key,
     this.shoppingItem,
     this.store,
+    this.index,
   });
 
   final ShoppingItemModel? shoppingItem;
   final ShoppingItemsStore? store;
+  final int? index;
 
   @override
   State<ShoppingListItem> createState() => _ShoppingListItemState();
@@ -51,20 +53,30 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 onTap: () {
                   setState(() {
                     _isChecked = !_isChecked;
+                    widget.shoppingItem!.isChecked =
+                        !widget.shoppingItem!.isChecked!;
                   });
+                  widget.store?.removeFromList(widget.shoppingItem!);
+                  if (widget.shoppingItem!.isChecked == true) {
+                    widget.store?.addAgain(widget.shoppingItem!);
+                  } else {
+                    widget.store?.addAgain2(widget.shoppingItem!);
+                  }
                 },
                 child: Container(
                   width: 25,
                   height: 25,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _isChecked ? AppColors.green : null,
+                    color: widget.shoppingItem!.isChecked!
+                        ? AppColors.green
+                        : null,
                     border: Border.all(
                       width: 1,
                       color: AppColors.green,
                     ),
                   ),
-                  child: _isChecked
+                  child: widget.shoppingItem!.isChecked!
                       ? const Icon(
                           Icons.check,
                           color: Colors.white,
@@ -80,8 +92,12 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 child: Text(
                   widget.shoppingItem!.name!,
                   style: TextStyle(
-                    color: _isChecked ? Colors.grey : Colors.black,
-                    decoration: _isChecked ? TextDecoration.lineThrough : null,
+                    color: widget.shoppingItem!.isChecked!
+                        ? Colors.grey
+                        : Colors.black,
+                    decoration: widget.shoppingItem!.isChecked!
+                        ? TextDecoration.lineThrough
+                        : null,
                   ),
                 ),
               )),
