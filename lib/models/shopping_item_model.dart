@@ -1,11 +1,21 @@
-class ShoppingItemModel {
+import 'package:hive/hive.dart';
+
+part 'shopping_item_model.g.dart';
+
+@HiveType(typeId: 0)
+class ShoppingItemModel extends HiveObject {
   ShoppingItemModel({
-    this.name,
-    this.id,
-    this.isChecked,
+    required this.id,
+    required this.isChecked,
+    required this.name,
   });
 
-  final String? name;
-  final int? id;
-  bool? isChecked;
+  @HiveField(0)
+  late int id;
+
+  @HiveField(1)
+  late bool isChecked;
+
+  @HiveField(2)
+  late String name;
 }

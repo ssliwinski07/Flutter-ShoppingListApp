@@ -55,15 +55,14 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                   height: 25,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: widget.shoppingItem!.isChecked!
-                        ? AppColors.green
-                        : null,
+                    color:
+                        widget.shoppingItem!.isChecked ? AppColors.green : null,
                     border: Border.all(
                       width: 1,
                       color: AppColors.green,
                     ),
                   ),
-                  child: widget.shoppingItem!.isChecked!
+                  child: widget.shoppingItem!.isChecked
                       ? const Icon(
                           Icons.check,
                           color: Colors.white,
@@ -77,12 +76,12 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                   _isTappedForDeletion = !_isTappedForDeletion;
                 },
                 child: Text(
-                  widget.shoppingItem!.name!,
+                  widget.shoppingItem!.name,
                   style: TextStyle(
-                    color: widget.shoppingItem!.isChecked!
+                    color: widget.shoppingItem!.isChecked
                         ? Colors.grey
                         : Colors.black,
-                    decoration: widget.shoppingItem!.isChecked!
+                    decoration: widget.shoppingItem!.isChecked
                         ? TextDecoration.lineThrough
                         : null,
                   ),
@@ -95,7 +94,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
 
   void _itemCheck() {
     setState(() {
-      widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked!;
+      widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked;
     });
     if (widget.store!.shoppingItems!.length > 1) {
       widget.store?.removeFromList(widget.shoppingItem!);
