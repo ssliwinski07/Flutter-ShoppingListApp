@@ -8,12 +8,10 @@ class ShoppingListItem extends StatefulWidget {
     super.key,
     this.shoppingItem,
     this.store,
-    this.index,
   });
 
   final ShoppingItemModel? shoppingItem;
   final ShoppingItemsStore? store;
-  final int? index;
 
   @override
   State<ShoppingListItem> createState() => _ShoppingListItemState();

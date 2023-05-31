@@ -41,7 +41,6 @@ class _ShoppingListState extends State<ShoppingList> {
                           return ShoppingListItem(
                             shoppingItem: item,
                             store: _shoppingItemsStore,
-                            index: index,
                           );
                         },
                       ),
