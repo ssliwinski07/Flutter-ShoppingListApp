@@ -14,23 +14,26 @@ abstract class ShoppingItemsStoreBase with Store {
   void addToList(String text) {
     shoppingItems = ObservableList.of(shoppingItems ?? [])
       ..add(ShoppingItemModel(
-          id: UniqueKey().hashCode, isChecked: false, name: text));
+        id: UniqueKey().hashCode,
+        isChecked: false,
+        name: text,
+      ));
   }
 
   @action
-  void removeFromList(ShoppingItemModel item) {
+  removeFromList(ShoppingItemModel item) {
     shoppingItems?.removeWhere((e) => e.id == item.id);
   }
 
   @action
-  void addAgain(ShoppingItemModel item) {
+  addToListAfterItemCheck(ShoppingItemModel item) {
     int end = shoppingItems!.length;
 
     shoppingItems = ObservableList.of(shoppingItems ?? [])..insert(end, item);
   }
 
   @action
-  void addAgain2(ShoppingItemModel item, {int? index}) {
+  addToListAfterItemUncheck(ShoppingItemModel item) {
     shoppingItems = ObservableList.of(shoppingItems ?? [])..insert(0, item);
   }
 }

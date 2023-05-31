@@ -35,16 +35,9 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                 ),
                 Text(AppLocalizations.of(context).shoppingLists),
                 const SizedBox(width: 40),
-                Column(
-                  children: [
-                    Text(
-                      AppLocalizations.of(context).todayIs,
-                    ),
-                    Text(
-                      '${LocaleFormats.formatDateTime(_today)}',
-                    ),
-                  ],
-                )
+                Text(
+                  '${LocaleFormats.formatDateTime(_today)}',
+                ),
               ],
             ),
             toolbarHeight: 90,

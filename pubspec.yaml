@@ -37,6 +37,7 @@ dependencies:
   shared_preferences: ^2.1.1
   mobx_codegen: ^2.3.0
   build_runner: ^2.4.4
+  get_it: ^7.6.0
   flutter_localizations:
     sdk: flutter
     

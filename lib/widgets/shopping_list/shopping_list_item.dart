@@ -51,17 +51,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
           child: ListTile(
               leading: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    _isChecked = !_isChecked;
-                    widget.shoppingItem!.isChecked =
-                        !widget.shoppingItem!.isChecked!;
-                  });
-                  widget.store?.removeFromList(widget.shoppingItem!);
-                  if (widget.shoppingItem!.isChecked == true) {
-                    widget.store?.addAgain(widget.shoppingItem!);
-                  } else {
-                    widget.store?.addAgain2(widget.shoppingItem!);
-                  }
+                  _itemCheck();
                 },
                 child: Container(
                   width: 25,
@@ -104,5 +94,18 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
         ),
       ],
     );
+  }
+
+  void _itemCheck() {
+    setState(() {
+      _isChecked = !_isChecked;
+      widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked!;
+    });
+    widget.store?.removeFromList(widget.shoppingItem!);
+    if (widget.shoppingItem!.isChecked == true) {
+      widget.store?.addToListAfterItemCheck(widget.shoppingItem!);
+    } else {
+      widget.store?.addToListAfterItemUncheck(widget.shoppingItem!);
+    }
   }
 }

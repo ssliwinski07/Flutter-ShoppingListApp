@@ -7,10 +7,6 @@
   "@shoppingLists": {
     "description": "The conventional newborn programmer greeting"
   },
-   "todayIs": "Today is",
-  "@todayIs": {
-    "description": "The conventional newborn programmer greeting"
-  },
    "noContent": "No content",
   "@noContent": {
     "description": "The conventional newborn programmer greeting"

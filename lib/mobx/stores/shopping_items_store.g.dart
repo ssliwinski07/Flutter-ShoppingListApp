@@ -40,11 +40,33 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
   }
 
   @override
-  void removeFromList(ShoppingItemModel item) {
+  dynamic removeFromList(ShoppingItemModel item) {
     final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
-        name: 'ShoppingItemsStoreBase.removeList');
+        name: 'ShoppingItemsStoreBase.removeFromList');
     try {
       return super.removeFromList(item);
+    } finally {
+      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic addToListAfterItemCheck(ShoppingItemModel item) {
+    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
+        name: 'ShoppingItemsStoreBase.addToListAfterItemCheck');
+    try {
+      return super.addToListAfterItemCheck(item);
+    } finally {
+      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic addToListAfterItemUncheck(ShoppingItemModel item) {
+    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
+        name: 'ShoppingItemsStoreBase.addToListAfterItemUncheck');
+    try {
+      return super.addToListAfterItemUncheck(item);
     } finally {
       _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
     }
