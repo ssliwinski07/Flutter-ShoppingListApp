@@ -18,8 +18,7 @@ class ShoppingListItem extends StatefulWidget {
 }
 
 class _ShoppingListItemState extends State<ShoppingListItem> {
-  bool _isChecked = false;
-  bool _isTapped = false;
+  bool _isTappedForDeletion = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
               onPressed: () async {
                 setState(() {
                   Future.delayed(const Duration(milliseconds: 400)).then((_) {
-                    _isTapped = !_isTapped;
+                    _isTappedForDeletion = !_isTappedForDeletion;
                     widget.store?.removeFromList(widget.shoppingItem!);
                   });
                 });
@@ -44,7 +43,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
         ),
         AnimatedContainer(
           color: Colors.white,
-          width: _isTapped ? 330 : MediaQuery.of(context).size.width,
+          width: _isTappedForDeletion ? 330 : MediaQuery.of(context).size.width,
           duration: const Duration(milliseconds: 400),
           child: ListTile(
               leading: GestureDetector(
@@ -75,7 +74,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
               title: GestureDetector(
                 onTap: () {
                   setState(() {});
-                  _isTapped = !_isTapped;
+                  _isTappedForDeletion = !_isTappedForDeletion;
                 },
                 child: Text(
                   widget.shoppingItem!.name!,
@@ -96,7 +95,6 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
 
   void _itemCheck() {
     setState(() {
-      _isChecked = !_isChecked;
       widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked!;
     });
     if (widget.store!.shoppingItems!.length > 1) {
