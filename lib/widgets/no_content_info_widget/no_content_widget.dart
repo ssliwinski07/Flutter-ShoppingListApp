@@ -25,7 +25,7 @@ class NoContentInfoWidget extends StatelessWidget {
           children: <Widget>[
             Image.asset(
               MAIN_SCREEN_LOADING_ICON_DIR,
-              scale: 5,
+              scale: 7,
             ),
             const SizedBox(
               height: 10.0,
@@ -38,7 +38,7 @@ class NoContentInfoWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 10.0,
+              height: 50.0,
             ),
             isAddingButtonVisible!
                 ? SRButton(

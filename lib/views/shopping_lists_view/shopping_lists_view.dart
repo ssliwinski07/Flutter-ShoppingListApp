@@ -51,33 +51,3 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
     );
   }
 }
-
-// backgroundColor: AppColors.white,
-//       appBar: AppBar(
-//         title: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: <Widget>[
-//             GestureDetector(
-//               child: const Icon(Icons.arrow_back_ios),
-//               onTap: () => Navigator.pop(context, true),
-//             ),
-//             const Text(AppLocalization.shoppingLists),
-//             const SizedBox(width: 40),
-//             Column(
-//               children: [
-//                 const Text(
-//                   AppLocalization.todayIs,
-//                 ),
-//                 Text(
-//                   '${LocaleFormats.formatDateTime(_today)}',
-//                 ),
-//               ],
-//             )
-//           ],
-//         ),
-//         toolbarHeight: 90,
-//         elevation: 10.0,
-//         automaticallyImplyLeading: false,
-//         backgroundColor: AppColors.green,
-//       ),
-//       body: ShoppingList(),

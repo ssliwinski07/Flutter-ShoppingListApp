@@ -3,7 +3,7 @@
   "@begin": {
     "description": "The conventional newborn programmer greeting"
   },
-   "shoppingLists": "Shopping lists",
+   "shoppingLists": "Shopping list",
   "@shoppingLists": {
     "description": "The conventional newborn programmer greeting"
   },
@@ -22,6 +22,6 @@
    "cancel": "Cancel",
   "@cancel": {
     "description": "The conventional newborn programmer greeting"
-  }
- 
+  },
+  "welcomeText" : "Simple shopping list!"
 }

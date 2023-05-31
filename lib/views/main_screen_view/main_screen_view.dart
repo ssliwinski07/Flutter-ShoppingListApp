@@ -51,10 +51,20 @@ class _MainScreenViewState extends State<MainScreenView> {
             Image.asset(
               _viewModel.iconsDirectory[
                   _viewModel.pickRandomIcon(_viewModel.iconsDirectory.length)],
-              scale: 1.5,
+              scale: 2,
             ),
             const SizedBox(
-              height: 200,
+              height: 110,
+            ),
+            Text(
+              AppLocalizations.of(context).welcomeText,
+              style: const TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 120,
             ),
             SRButton(
               color: AppColors.green,
