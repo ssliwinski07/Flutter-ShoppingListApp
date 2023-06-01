@@ -39,7 +39,7 @@ abstract class ShoppingItemsStoreBase with Store {
 
   @action
   removeFromList(ShoppingItemModel item) {
-    //shoppingItemsBox?.delete(item.key);
+    shoppingItemsBox?.delete(item.key);
     shoppingItems?.removeWhere((e) => e.id == item.id);
   }
 
@@ -55,8 +55,7 @@ abstract class ShoppingItemsStoreBase with Store {
     shoppingItems = ObservableList.of(shoppingItems ?? [])..insert(0, item);
   }
 
-  void initHive() async {
-    await Hive.openBox<ShoppingItemModel>('shoppingItems');
+  Future<void> initHive() async {
     shoppingItemsBox = Hive.box<ShoppingItemModel>('shoppingItems');
     shoppingItems =
         ObservableList<ShoppingItemModel>.of(shoppingItemsBox!.values.toList());
