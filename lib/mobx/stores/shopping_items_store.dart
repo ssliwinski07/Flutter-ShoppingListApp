@@ -18,41 +18,35 @@ abstract class ShoppingItemsStoreBase with Store {
   List<ShoppingItemModel>? shoppingItems = [];
 
   @action
-  void addToList(String text) {
+  addToList(String text) {
     final newItem = ShoppingItemModel(
       id: UniqueKey().hashCode,
       isChecked: false,
       name: text,
     );
     shoppingItemsBox?.add(newItem);
-    shoppingItems?.add(newItem);
   }
-
-  // void addToList(String text) {
-  //   shoppingItems = ObservableList.of(shoppingItems ?? [])
-  //     ..add(ShoppingItemModel(
-  //       id: UniqueKey().hashCode,
-  //       isChecked: false,
-  //       name: text,
-  //     ));
-  // }
 
   @action
   removeFromList(ShoppingItemModel item) {
     shoppingItemsBox?.delete(item.key);
-    shoppingItems?.removeWhere((e) => e.id == item.id);
   }
 
   @action
-  addToListAfterItemCheck(ShoppingItemModel item) {
-    int end = shoppingItems!.length;
-
-    shoppingItems = ObservableList.of(shoppingItems ?? [])..insert(end, item);
+  itemCheck(ShoppingItemModel item) {
+    item.isChecked = true;
+    shoppingItemsBox?.put(item.key, item);
   }
 
   @action
-  addToListAfterItemUncheck(ShoppingItemModel item) {
-    shoppingItems = ObservableList.of(shoppingItems ?? [])..insert(0, item);
+  unCheckItem(ShoppingItemModel item) {
+    item.isChecked = false;
+    shoppingItemsBox?.put(item.key, item);
+  }
+
+  @action
+  deleteAllItems() async {
+    await shoppingItemsBox?.clear();
   }
 
   Future<void> initHive() async {

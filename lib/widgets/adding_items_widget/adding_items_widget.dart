@@ -3,7 +3,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 
 class AddingItemsWidget extends StatefulWidget {
-  const AddingItemsWidget({super.key, this.store});
+  const AddingItemsWidget({
+    super.key,
+    this.store,
+  });
 
   final ShoppingItemsStore? store;
 
@@ -61,7 +64,7 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  AppLocalizations.of(context).cancel,
+                  AppLocalizations.of(context).cancel.toUpperCase(),
                   style: const TextStyle(
                     color: Color.fromARGB(255, 226, 81, 70),
                   ),
@@ -75,11 +78,12 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
                     ? null
                     : () {
                         widget.store?.addToList(_textController.text);
+                        _textController.clear();
 
-                        Navigator.pop(context);
+                        //Navigator.pop(context);
                       },
                 child: Text(
-                  AppLocalizations.of(context).add,
+                  AppLocalizations.of(context).add.toUpperCase(),
                   style: TextStyle(
                     color: _isTextEmpty
                         ? const Color.fromARGB(255, 214, 214, 214)

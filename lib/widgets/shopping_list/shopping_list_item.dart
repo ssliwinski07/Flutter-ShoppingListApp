@@ -19,6 +19,8 @@ class ShoppingListItem extends StatefulWidget {
 
 class _ShoppingListItemState extends State<ShoppingListItem> {
   bool _isTappedForDeletion = false;
+  ShoppingItemModel get _item => widget.shoppingItem!;
+  bool get _isItemChecked => widget.shoppingItem!.isChecked;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 setState(() {
                   Future.delayed(const Duration(milliseconds: 400)).then((_) {
                     _isTappedForDeletion = !_isTappedForDeletion;
-                    widget.store?.removeFromList(widget.shoppingItem!);
+                    widget.store?.removeFromList(_item);
                   });
                 });
               },
@@ -48,21 +50,24 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
           child: ListTile(
               leading: GestureDetector(
                 onTap: () {
-                  _itemCheck();
+                  if (_isItemChecked == false) {
+                    widget.store?.itemCheck(_item);
+                  } else {
+                    widget.store?.unCheckItem(_item);
+                  }
                 },
                 child: Container(
                   width: 25,
                   height: 25,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color:
-                        widget.shoppingItem!.isChecked ? AppColors.green : null,
+                    color: _isItemChecked ? AppColors.green : null,
                     border: Border.all(
                       width: 1,
                       color: AppColors.green,
                     ),
                   ),
-                  child: widget.shoppingItem!.isChecked
+                  child: _isItemChecked
                       ? const Icon(
                           Icons.check,
                           color: Colors.white,
@@ -78,12 +83,9 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 child: Text(
                   widget.shoppingItem!.name,
                   style: TextStyle(
-                    color: widget.shoppingItem!.isChecked
-                        ? Colors.grey
-                        : Colors.black,
-                    decoration: widget.shoppingItem!.isChecked
-                        ? TextDecoration.lineThrough
-                        : null,
+                    color: _isItemChecked ? Colors.grey : Colors.black,
+                    decoration:
+                        _isItemChecked ? TextDecoration.lineThrough : null,
                   ),
                 ),
               )),
@@ -92,17 +94,17 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
     );
   }
 
-  void _itemCheck() {
-    setState(() {
-      widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked;
-    });
-    if (widget.store!.shoppingItems!.length > 1) {
-      widget.store?.removeFromList(widget.shoppingItem!);
-      if (widget.shoppingItem!.isChecked == true) {
-        widget.store?.addToListAfterItemCheck(widget.shoppingItem!);
-      } else {
-        widget.store?.addToListAfterItemUncheck(widget.shoppingItem!);
-      }
-    }
-  }
+  // void _itemCheck() {
+  //   setState(() {
+  //     widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked;
+  //   });
+  //   // if (widget.store!.shoppingItems!.length > 1) {
+  //   //   widget.store?.removeFromList(widget.shoppingItem!);
+  //   //   if (widget.shoppingItem!.isChecked == true) {
+  //   if (widget.shoppingItem!.isChecked == true) {
+  //     widget.store?.addToListAfterItemCheck(widget.shoppingItem!);
+  //   } else {
+  //     widget.store?.addToListAfterItemUncheck(widget.shoppingItem!);
+  //   }
+  // }
 }

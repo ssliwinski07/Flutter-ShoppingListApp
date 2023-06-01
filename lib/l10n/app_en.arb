@@ -23,5 +23,7 @@
   "@cancel": {
     "description": "The conventional newborn programmer greeting"
   },
-  "welcomeText" : "Simple shopping list!"
+  "welcomeText" : "Simple shopping list!",
+  "areYouSure" : "This action will delete all items from the list. Are you sure?",
+  "confirm" : "confirm"
 }
