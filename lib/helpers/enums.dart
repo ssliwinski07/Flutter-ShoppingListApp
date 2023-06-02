@@ -1,0 +1,4 @@
+enum ActionDialogTypes {
+  addingItems,
+  infoAlert,
+}

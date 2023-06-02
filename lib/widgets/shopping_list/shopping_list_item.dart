@@ -93,18 +93,4 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
       ],
     );
   }
-
-  // void _itemCheck() {
-  //   setState(() {
-  //     widget.shoppingItem!.isChecked = !widget.shoppingItem!.isChecked;
-  //   });
-  //   // if (widget.store!.shoppingItems!.length > 1) {
-  //   //   widget.store?.removeFromList(widget.shoppingItem!);
-  //   //   if (widget.shoppingItem!.isChecked == true) {
-  //   if (widget.shoppingItem!.isChecked == true) {
-  //     widget.store?.addToListAfterItemCheck(widget.shoppingItem!);
-  //   } else {
-  //     widget.store?.addToListAfterItemUncheck(widget.shoppingItem!);
-  //   }
-  // }
 }

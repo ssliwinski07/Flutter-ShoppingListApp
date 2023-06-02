@@ -15,7 +15,32 @@ abstract class ShoppingItemsStoreBase with Store {
   Box<ShoppingItemModel>? shoppingItemsBox;
 
   @observable
+  int countAllItems = 0;
+
+  @observable
+  int countCheckedItems = 0;
+
+  @observable
   List<ShoppingItemModel>? shoppingItems = [];
+
+  @action
+  getAllItems() {
+    countAllItems = shoppingItemsBox!.length;
+    return countAllItems;
+  }
+
+  @action
+  getCheckedItems() {
+    int count = 0;
+    var list = Hive.box<ShoppingItemModel>('shoppingItems').values.toList();
+    for (ShoppingItemModel item in list) {
+      if (item.isChecked == true) {
+        count++;
+      }
+    }
+    countCheckedItems = count;
+    return countCheckedItems;
+  }
 
   @action
   addToList(String text) {
@@ -25,23 +50,27 @@ abstract class ShoppingItemsStoreBase with Store {
       name: text,
     );
     shoppingItemsBox?.add(newItem);
+    getAllItems();
   }
 
   @action
   removeFromList(ShoppingItemModel item) {
     shoppingItemsBox?.delete(item.key);
+    getAllItems();
   }
 
   @action
   itemCheck(ShoppingItemModel item) {
     item.isChecked = true;
     shoppingItemsBox?.put(item.key, item);
+    getCheckedItems();
   }
 
   @action
   unCheckItem(ShoppingItemModel item) {
     item.isChecked = false;
     shoppingItemsBox?.put(item.key, item);
+    getCheckedItems();
   }
 
   @action

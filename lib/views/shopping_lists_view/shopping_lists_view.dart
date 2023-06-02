@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_final_fields
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
+import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +16,15 @@ class ShoppingListsView extends StatefulWidget {
 }
 
 class _ShoppingListsViewState extends State<ShoppingListsView> {
+  final ShoppingItemsStore _shoppingItemsStore = ShoppingItemsStore();
   DateTime _today = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _shoppingItemsStore.getAllItems();
+    _shoppingItemsStore.getCheckedItems();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +44,15 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                   onTap: () => Navigator.pop(context, true),
                 ),
                 Text(AppLocalizations.of(context).shoppingLists),
+                Observer(
+                  builder: (_) {
+                    return (_shoppingItemsStore.shoppingItems == null ||
+                            _shoppingItemsStore.shoppingItems!.isEmpty)
+                        ? const SizedBox()
+                        : Text(
+                            '${_shoppingItemsStore.countCheckedItems}/${_shoppingItemsStore.countAllItems}');
+                  },
+                ),
                 const SizedBox(width: 40),
                 Text(
                   '${LocaleFormats.formatDateTime(_today)}',
@@ -46,7 +65,9 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
             backgroundColor: AppColors.green,
           ),
         ],
-        body: const ShoppingList(),
+        body: ShoppingList(
+          shoppingItemStore: _shoppingItemsStore,
+        ),
       ),
     );
   }
