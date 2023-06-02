@@ -7,6 +7,7 @@
 "cancel" : "Anuluj",
 "welcomeText" : "Prosta lista zakupów!",
 "areYouSure" : "Ta akcja usunie wszystkie elementy z listy. Jesteś pewny?",
-"confirm" : "Potwierdź"
+"confirm" : "Potwierdź",
+"enterItem" : "Wprowadź element..."
 
 }

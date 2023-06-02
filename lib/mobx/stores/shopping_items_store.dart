@@ -43,34 +43,34 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   @action
-  addToList(String text) {
+  addToList(String text) async {
     final newItem = ShoppingItemModel(
       id: UniqueKey().hashCode,
       isChecked: false,
       name: text,
     );
-    shoppingItemsBox?.add(newItem);
+    await shoppingItemsBox?.add(newItem);
     getAllItems();
   }
 
   @action
-  removeFromList(ShoppingItemModel item) {
-    shoppingItemsBox?.delete(item.key);
-    getAllItems();
+  removeFromList(ShoppingItemModel item) async {
+    await shoppingItemsBox?.delete(item.key);
+    await getAllItems();
   }
 
   @action
-  itemCheck(ShoppingItemModel item) {
+  itemCheck(ShoppingItemModel item) async {
     item.isChecked = true;
     shoppingItemsBox?.put(item.key, item);
-    getCheckedItems();
+    await getCheckedItems();
   }
 
   @action
-  unCheckItem(ShoppingItemModel item) {
+  unCheckItem(ShoppingItemModel item) async {
     item.isChecked = false;
     shoppingItemsBox?.put(item.key, item);
-    getCheckedItems();
+    await getCheckedItems();
   }
 
   @action

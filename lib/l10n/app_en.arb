@@ -25,5 +25,6 @@
   },
   "welcomeText" : "Simple shopping list!",
   "areYouSure" : "This action will delete all items from the list. Are you sure?",
-  "confirm" : "confirm"
+  "confirm" : "confirm",
+  "enterItem" : "Enter item..."
 }

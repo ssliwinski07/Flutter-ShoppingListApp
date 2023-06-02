@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_reminder/helpers/enums.dart';
+
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/widgets/action_dialog/action_dialog.dart';
+import 'package:shopping_reminder/widgets/adding_items_widget/adding_items_widget.dart';
+import 'package:shopping_reminder/widgets/alert_info_widget/info_alert_widget.dart';
 import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
 import 'package:shopping_reminder/widgets/no_content_info_widget/no_content_widget.dart';
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list_item.dart';
@@ -19,8 +20,6 @@ class ShoppingList extends StatefulWidget {
 }
 
 class _ShoppingListState extends State<ShoppingList> {
-  //final ShoppingItemsStore _shoppingItemsStore = ShoppingItemsStore();
-
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -88,27 +87,26 @@ class _ShoppingListState extends State<ShoppingList> {
     );
   }
 
-  _showInfoAlertWidget() {
+  _showAddingItemDialog() {
     showDialog(
       context: context,
-      builder: (context) => ActionDialogWidget.infoAlertWidget(
-        leftInfoButtonTitle: AppLocalizations.of(context).confirm,
-        rightInfoButtonTitle: AppLocalizations.of(context).cancel,
-        infoTitle: AppLocalizations.of(context).areYouSure,
-        dialogType: ActionDialogTypes.infoAlert,
-        onTap: () {
-          widget.shoppingItemStore!.deleteAllItems();
-        },
+      builder: (context) => AddingItemsWidget(
+        store: widget.shoppingItemStore,
       ),
     );
   }
 
-  _showAddingItemDialog() {
+  _showInfoAlertWidget() {
     showDialog(
       context: context,
-      builder: (context) => ActionDialogWidget.addingItemsDialog(
-          store: widget.shoppingItemStore,
-          dialogType: ActionDialogTypes.addingItems),
+      builder: (context) => InfoAlertWidget(
+        onTap: () {
+          widget.shoppingItemStore!.deleteAllItems();
+        },
+        infoTitle: AppLocalizations.of(context).areYouSure,
+        leftInfoButtonTitle: AppLocalizations.of(context).confirm,
+        rightInfoButtonTitle: AppLocalizations.of(context).cancel,
+      ),
     );
   }
 }
