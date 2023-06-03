@@ -28,69 +28,78 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
       children: [
         Container(
           color: Colors.red,
-          child: ListTile(
-            trailing: IconButton(
-              onPressed: () async {
-                setState(() {
-                  Future.delayed(const Duration(milliseconds: 400)).then((_) {
+          child: AnimatedContainer(
+            color: Colors.white,
+            width: MediaQuery.of(context).size.width,
+            duration: const Duration(milliseconds: 400),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 80),
+              child: ListTile(
+                leading:
+                    _isTappedForDeletion ? _getDeleteIcon() : _getCheckIcon(),
+                title: GestureDetector(
+                  onTap: () {
+                    setState(() {});
                     _isTappedForDeletion = !_isTappedForDeletion;
-                    widget.store?.removeFromList(_item);
-                  });
-                });
-              },
-              icon: const Icon(Icons.delete_forever),
-              color: Colors.white,
+                  },
+                  child: Text(
+                    widget.shoppingItem!.name,
+                    maxLines: 100,
+                    style: TextStyle(
+                      color: _isItemChecked ? Colors.grey : Colors.black,
+                      decoration:
+                          _isItemChecked ? TextDecoration.lineThrough : null,
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ),
-        AnimatedContainer(
-          color: Colors.white,
-          width: _isTappedForDeletion ? 330 : MediaQuery.of(context).size.width,
-          duration: const Duration(milliseconds: 400),
-          child: ListTile(
-              leading: GestureDetector(
-                onTap: () {
-                  if (_isItemChecked == false) {
-                    widget.store?.itemCheck(_item);
-                  } else {
-                    widget.store?.unCheckItem(_item);
-                  }
-                },
-                child: Container(
-                  width: 25,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: _isItemChecked ? AppColors.green : null,
-                    border: Border.all(
-                      width: 1,
-                      color: AppColors.green,
-                    ),
-                  ),
-                  child: _isItemChecked
-                      ? const Icon(
-                          Icons.check,
-                          color: Colors.white,
-                        )
-                      : const SizedBox(),
-                ),
-              ),
-              title: GestureDetector(
-                onTap: () {
-                  setState(() {});
-                  _isTappedForDeletion = !_isTappedForDeletion;
-                },
-                child: Text(
-                  widget.shoppingItem!.name,
-                  style: TextStyle(
-                    color: _isItemChecked ? Colors.grey : Colors.black,
-                    decoration:
-                        _isItemChecked ? TextDecoration.lineThrough : null,
-                  ),
-                ),
-              )),
-        ),
       ],
+    );
+  }
+
+  _getDeleteIcon() {
+    return GestureDetector(
+      onTap: () {
+        widget.store?.removeFromList(_item);
+        _isTappedForDeletion = !_isTappedForDeletion;
+      },
+      child: const Icon(
+        Icons.remove,
+        color: Colors.red,
+      ),
+    );
+  }
+
+  _getCheckIcon() {
+    return GestureDetector(
+      onTap: () {
+        if (_isItemChecked == false) {
+          widget.store?.itemCheck(_item);
+        } else {
+          widget.store?.unCheckItem(_item);
+        }
+      },
+      child: Container(
+        width: 25,
+        height: 25,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: _isItemChecked ? AppColors.green : null,
+          border: Border.all(
+            width: 1,
+            color: AppColors.green,
+          ),
+        ),
+        child: _isItemChecked
+            ? const Icon(
+                Icons.check,
+                color: Colors.white,
+              )
+            : const SizedBox(),
+      ),
     );
   }
 }

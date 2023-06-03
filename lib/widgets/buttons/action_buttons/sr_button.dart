@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class SRButton extends StatelessWidget {
   const SRButton(
-      {required this.color,
-      required this.onTap,
-      required this.width,
+      {this.color,
+      this.onTap,
+      this.width,
       this.height,
-      required this.borderRadius,
-      required this.buttonTitle,
+      this.borderRadius,
+      this.buttonTitle,
       super.key});
 
   final Color? color;
@@ -19,10 +19,12 @@ class SRButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        onTap!();
-      },
+    return GestureDetector(
+      onTap: onTap == null
+          ? null
+          : () {
+              onTap!();
+            },
       child: Container(
         width: width,
         height: height,

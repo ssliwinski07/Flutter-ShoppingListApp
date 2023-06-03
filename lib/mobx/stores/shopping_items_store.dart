@@ -56,6 +56,7 @@ abstract class ShoppingItemsStoreBase with Store {
   @action
   removeFromList(ShoppingItemModel item) async {
     await shoppingItemsBox?.delete(item.key);
+    await getCheckedItems();
     await getAllItems();
   }
 

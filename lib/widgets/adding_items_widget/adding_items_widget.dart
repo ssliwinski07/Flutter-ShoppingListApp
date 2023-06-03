@@ -6,9 +6,11 @@ class AddingItemsWidget extends StatefulWidget {
   const AddingItemsWidget({
     super.key,
     this.store,
+    this.shouldHideDialog,
   });
 
   final ShoppingItemsStore? store;
+  final bool? shouldHideDialog;
 
   @override
   State<AddingItemsWidget> createState() => _AddingItemsWidgetState();
@@ -81,8 +83,9 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
               : () {
                   widget.store?.addToList(_textController.text);
                   _textController.clear();
-
-                  Navigator.pop(context);
+                  if (widget.shouldHideDialog == true) {
+                    Navigator.pop(context);
+                  }
                 },
           child: Padding(
             padding: const EdgeInsets.only(

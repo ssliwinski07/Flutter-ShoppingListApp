@@ -28,8 +28,9 @@ class _ShoppingListState extends State<ShoppingList> {
                 widget.shoppingItemStore!.shoppingItems!.isEmpty
             ? NoContentInfoWidget(
                 isAddingButtonVisible: true,
-                onTap: _showAddingItemDialog,
-              )
+                onTap: () {
+                  _showAddingItemDialog();
+                })
             : SizedBox(
                 height: 400,
                 child: Stack(
@@ -57,7 +58,9 @@ class _ShoppingListState extends State<ShoppingList> {
                         width: 60,
                         height: 60,
                         borderRadius: BorderRadius.circular(30),
-                        onTap: _showAddingItemDialog,
+                        onTap: () {
+                          _showAddingItemDialog(shouldHideDialog: false);
+                        },
                         color: AppColors.green,
                         buttonTitle: const Icon(
                           Icons.add,
@@ -87,11 +90,12 @@ class _ShoppingListState extends State<ShoppingList> {
     );
   }
 
-  _showAddingItemDialog() {
+  _showAddingItemDialog({bool? shouldHideDialog = true}) {
     showDialog(
       context: context,
       builder: (context) => AddingItemsWidget(
         store: widget.shoppingItemStore,
+        shouldHideDialog: shouldHideDialog,
       ),
     );
   }
