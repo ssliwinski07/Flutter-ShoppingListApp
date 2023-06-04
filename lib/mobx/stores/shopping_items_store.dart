@@ -30,7 +30,7 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   @action
-  getCheckedItems() {
+  getCheckedItems() async {
     int count = 0;
     var list = Hive.box<ShoppingItemModel>('shoppingItems').values.toList();
     for (ShoppingItemModel item in list) {
@@ -57,7 +57,7 @@ abstract class ShoppingItemsStoreBase with Store {
   removeFromList(ShoppingItemModel item) async {
     await shoppingItemsBox?.delete(item.key);
     await getCheckedItems();
-    await getAllItems();
+    getAllItems();
   }
 
   @action
@@ -80,6 +80,7 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   Future<void> initHive() async {
+    await Hive.openBox<ShoppingItemModel>('shoppingItems');
     shoppingItemsBox = Hive.box<ShoppingItemModel>('shoppingItems');
     shoppingItems =
         ObservableList<ShoppingItemModel>.of(shoppingItemsBox!.values.toList());

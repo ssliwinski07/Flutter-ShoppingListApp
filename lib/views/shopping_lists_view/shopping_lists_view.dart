@@ -19,56 +19,76 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
   final ShoppingItemsStore _shoppingItemsStore = ShoppingItemsStore();
   DateTime _today = DateTime.now();
 
+  bool _isLoading = false;
+
   @override
   void initState() {
     super.initState();
-    _shoppingItemsStore.getAllItems();
-    _shoppingItemsStore.getCheckedItems();
+    _loading();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: NestedScrollView(
-        floatHeaderSlivers: true,
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(
-            floating: true,
-            snap: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                GestureDetector(
-                  child: const Icon(Icons.arrow_back_ios),
-                  onTap: () => Navigator.pop(context, true),
-                ),
-                Text(AppLocalizations.of(context).shoppingLists),
-                Observer(
-                  builder: (_) {
-                    return (_shoppingItemsStore.shoppingItems == null ||
-                            _shoppingItemsStore.shoppingItems!.isEmpty)
-                        ? const SizedBox()
-                        : Text(
-                            '${_shoppingItemsStore.countCheckedItems}/${_shoppingItemsStore.countAllItems}');
-                  },
-                ),
-                const SizedBox(width: 40),
-                Text(
-                  '${LocaleFormats.formatDateTime(_today)}',
+    return !_isLoading
+        ? const Scaffold(
+            body: Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          ))
+        : Scaffold(
+            backgroundColor: AppColors.white,
+            body: NestedScrollView(
+              floatHeaderSlivers: true,
+              headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                SliverAppBar(
+                  floating: true,
+                  snap: true,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      GestureDetector(
+                        child: const Icon(Icons.arrow_back_ios),
+                        onTap: () => Navigator.pop(context, true),
+                      ),
+                      Text(AppLocalizations.of(context).shoppingLists),
+                      Observer(
+                        builder: (_) {
+                          return (_shoppingItemsStore.shoppingItems == null ||
+                                  _shoppingItemsStore.shoppingItems!.isEmpty)
+                              ? const SizedBox()
+                              : Text(
+                                  '${_shoppingItemsStore.countCheckedItems}/${_shoppingItemsStore.countAllItems}');
+                        },
+                      ),
+                      const SizedBox(width: 40),
+                      Text(
+                        '${LocaleFormats.formatDateTime(_today)}',
+                      ),
+                    ],
+                  ),
+                  toolbarHeight: 90,
+                  elevation: 10.0,
+                  automaticallyImplyLeading: false,
+                  backgroundColor: AppColors.green,
                 ),
               ],
+              body: ShoppingList(
+                shoppingItemStore: _shoppingItemsStore,
+              ),
             ),
-            toolbarHeight: 90,
-            elevation: 10.0,
-            automaticallyImplyLeading: false,
-            backgroundColor: AppColors.green,
-          ),
-        ],
-        body: ShoppingList(
-          shoppingItemStore: _shoppingItemsStore,
-        ),
-      ),
-    );
+          );
+  }
+
+  Future<void> _loading() async {
+    Future.wait([
+      _shoppingItemsStore.initHive(),
+    ]).then((_) {
+      setState(() {
+        _isLoading = !_isLoading;
+      });
+      _shoppingItemsStore.getAllItems();
+      _shoppingItemsStore.getCheckedItems();
+    });
   }
 }
