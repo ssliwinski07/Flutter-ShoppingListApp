@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
+import 'package:provider/provider.dart';
 
 class AddingItemsWidget extends StatefulWidget {
   const AddingItemsWidget({
     super.key,
-    this.store,
     this.shouldHideDialog,
   });
 
-  final ShoppingItemsStore? store;
   final bool? shouldHideDialog;
 
   @override
@@ -81,7 +80,8 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
           onTap: _isTextEmpty == true
               ? null
               : () {
-                  widget.store?.addToList(_textController.text);
+                  Provider.of<ShoppingItemsStore>(context, listen: false)
+                      .addToList(_textController.text);
                   _textController.clear();
                   if (widget.shouldHideDialog == true) {
                     Navigator.pop(context);

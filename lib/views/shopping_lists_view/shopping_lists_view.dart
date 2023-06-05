@@ -7,6 +7,7 @@ import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class ShoppingListsView extends StatefulWidget {
   const ShoppingListsView({super.key});
@@ -16,7 +17,6 @@ class ShoppingListsView extends StatefulWidget {
 }
 
 class _ShoppingListsViewState extends State<ShoppingListsView> {
-  final ShoppingItemsStore _shoppingItemsStore = ShoppingItemsStore();
   DateTime _today = DateTime.now();
 
   bool _isLoading = false;
@@ -54,11 +54,17 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                       Text(AppLocalizations.of(context).shoppingLists),
                       Observer(
                         builder: (_) {
-                          return (_shoppingItemsStore.shoppingItems == null ||
-                                  _shoppingItemsStore.shoppingItems!.isEmpty)
+                          return (Provider.of<ShoppingItemsStore>(context,
+                                              listen: false)
+                                          .shoppingItems ==
+                                      null ||
+                                  Provider.of<ShoppingItemsStore>(context,
+                                          listen: false)
+                                      .shoppingItems!
+                                      .isEmpty)
                               ? const SizedBox()
                               : Text(
-                                  '${_shoppingItemsStore.countCheckedItems}/${_shoppingItemsStore.countAllItems}');
+                                  '${Provider.of<ShoppingItemsStore>(context, listen: false).countCheckedItems}/${Provider.of<ShoppingItemsStore>(context, listen: false).countAllItems}');
                         },
                       ),
                       const SizedBox(width: 40),
@@ -73,22 +79,20 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                   backgroundColor: AppColors.green,
                 ),
               ],
-              body: ShoppingList(
-                shoppingItemStore: _shoppingItemsStore,
-              ),
+              body: const ShoppingList(),
             ),
           );
   }
 
   Future<void> _loading() async {
     Future.wait([
-      _shoppingItemsStore.initHive(),
+      Provider.of<ShoppingItemsStore>(context, listen: false).initHive()
     ]).then((_) {
       setState(() {
         _isLoading = !_isLoading;
       });
-      _shoppingItemsStore.getAllItems();
-      _shoppingItemsStore.getCheckedItems();
+      Provider.of<ShoppingItemsStore>(context, listen: false).getAllItems();
+      Provider.of<ShoppingItemsStore>(context, listen: false).getCheckedItems();
     });
   }
 }

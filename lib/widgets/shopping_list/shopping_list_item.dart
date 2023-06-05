@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
+import 'package:provider/provider.dart';
 
 class ShoppingListItem extends StatefulWidget {
   const ShoppingListItem({
     super.key,
     this.shoppingItem,
-    this.store,
   });
 
   final ShoppingItemModel? shoppingItem;
-  final ShoppingItemsStore? store;
 
   @override
   State<ShoppingListItem> createState() => _ShoppingListItemState();
@@ -63,7 +62,8 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
   _getDeleteIcon() {
     return GestureDetector(
       onTap: () {
-        widget.store?.removeFromList(_item);
+        Provider.of<ShoppingItemsStore>(context, listen: false)
+            .removeFromList(_item);
         _isTappedForDeletion = !_isTappedForDeletion;
       },
       child: const Icon(
@@ -77,9 +77,11 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
     return GestureDetector(
       onTap: () {
         if (_isItemChecked == false) {
-          widget.store?.itemCheck(_item);
+          Provider.of<ShoppingItemsStore>(context, listen: false)
+              .itemCheck(_item);
         } else {
-          widget.store?.unCheckItem(_item);
+          Provider.of<ShoppingItemsStore>(context, listen: false)
+              .unCheckItem(_item);
         }
       },
       child: Container(

@@ -9,11 +9,10 @@ import 'package:shopping_reminder/widgets/no_content_info_widget/no_content_widg
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list_item.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class ShoppingList extends StatefulWidget {
-  const ShoppingList({super.key, this.shoppingItemStore});
-
-  final ShoppingItemsStore? shoppingItemStore;
+  const ShoppingList({super.key});
 
   @override
   State<ShoppingList> createState() => _ShoppingListState();
@@ -24,8 +23,12 @@ class _ShoppingListState extends State<ShoppingList> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
-        return widget.shoppingItemStore!.shoppingItems == null ||
-                widget.shoppingItemStore!.shoppingItems!.isEmpty
+        return Provider.of<ShoppingItemsStore>(context, listen: false)
+                        .shoppingItems ==
+                    null ||
+                Provider.of<ShoppingItemsStore>(context, listen: false)
+                    .shoppingItems!
+                    .isEmpty
             ? NoContentInfoWidget(
                 isAddingButtonVisible: true,
                 onTap: () {
@@ -39,14 +42,16 @@ class _ShoppingListState extends State<ShoppingList> {
                       builder: (_) => ListView.builder(
                         padding: const EdgeInsets.only(bottom: 10.0, top: 5.0),
                         physics: const BouncingScrollPhysics(),
-                        itemCount:
-                            widget.shoppingItemStore!.shoppingItems!.length,
+                        itemCount: Provider.of<ShoppingItemsStore>(context,
+                                listen: false)
+                            .shoppingItems!
+                            .length,
                         itemBuilder: (BuildContext context, int index) {
-                          var item =
-                              widget.shoppingItemStore!.shoppingItems?[index];
+                          var item = Provider.of<ShoppingItemsStore>(context,
+                                  listen: false)
+                              .shoppingItems?[index];
                           return ShoppingListItem(
                             shoppingItem: item,
-                            store: widget.shoppingItemStore,
                           );
                         },
                       ),
@@ -94,7 +99,6 @@ class _ShoppingListState extends State<ShoppingList> {
     showDialog(
       context: context,
       builder: (context) => AddingItemsWidget(
-        store: widget.shoppingItemStore,
         shouldHideDialog: shouldHideDialog,
       ),
     );
@@ -105,7 +109,8 @@ class _ShoppingListState extends State<ShoppingList> {
       context: context,
       builder: (context) => InfoAlertWidget(
         onTap: () {
-          widget.shoppingItemStore!.deleteAllItems();
+          Provider.of<ShoppingItemsStore>(context, listen: false)
+              .deleteAllItems();
         },
         infoTitle: AppLocalizations.of(context).areYouSure,
         leftInfoButtonTitle: AppLocalizations.of(context).confirm,
