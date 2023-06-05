@@ -11,14 +11,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class ShoppingList extends StatefulWidget {
+class ShoppingList extends StatelessWidget {
   const ShoppingList({super.key});
 
-  @override
-  State<ShoppingList> createState() => _ShoppingListState();
-}
-
-class _ShoppingListState extends State<ShoppingList> {
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -80,7 +75,7 @@ class _ShoppingListState extends State<ShoppingList> {
                         width: 60,
                         height: 60,
                         borderRadius: BorderRadius.circular(30),
-                        onTap: _showInfoAlertWidget,
+                        onTap: () => _showInfoAlertWidget(context),
                         color: AppColors.green,
                         buttonTitle: const Icon(
                           Icons.delete,
@@ -95,18 +90,19 @@ class _ShoppingListState extends State<ShoppingList> {
     );
   }
 
-  _showAddingItemDialog({bool? shouldHideDialog = true}) {
+  _showAddingItemDialog(
+      {bool? shouldHideDialog = true, BuildContext? context}) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (context) => AddingItemsWidget(
         shouldHideDialog: shouldHideDialog,
       ),
     );
   }
 
-  _showInfoAlertWidget() {
+  _showInfoAlertWidget(BuildContext? context) {
     showDialog(
-      context: context,
+      context: context!,
       builder: (context) => InfoAlertWidget(
         onTap: () {
           Provider.of<ShoppingItemsStore>(context, listen: false)
