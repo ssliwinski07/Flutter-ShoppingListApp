@@ -38,47 +38,35 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(20.0),
-          ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
         ),
-        title: SizedBox(
-          width: 400,
-          child: TextFormField(
-            cursorColor: Colors.black,
-            controller: _textController,
-            decoration: InputDecoration(
-              hintText: AppLocalizations.of(context).enterItem,
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.grey,
-                ),
+      ),
+      title: SizedBox(
+        width: 400,
+        child: TextFormField(
+          cursorColor: Colors.black,
+          controller: _textController,
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context).enterItem,
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey,
               ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey),
-              ),
+            ),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
             ),
           ),
         ),
-        actions: !_isItemAdded
-            ? _getActions()
-            : [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 10.0,
-                    bottom: 10.0,
-                    right: 10.0,
-                  ),
-                  child: Text(
-                    AppLocalizations.of(context).itemAdded.toUpperCase(),
-                    style: const TextStyle(
-                      fontSize: 16.0,
-                      color: AppColors.green,
-                    ),
-                  ),
-                ),
-              ]);
+      ),
+      actions: !_isItemAdded
+          ? _getActions()
+          : [
+              _getItemAddedInfo(),
+            ],
+    );
   }
 
   List<Widget> _getActions() {
@@ -132,6 +120,23 @@ class _AddingItemsWidgetState extends State<AddingItemsWidget> {
       )
     ];
     return items;
+  }
+
+  Widget _getItemAddedInfo() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: 10.0,
+        bottom: 10.0,
+        right: 10.0,
+      ),
+      child: Text(
+        AppLocalizations.of(context).itemAdded.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 16.0,
+          color: AppColors.green,
+        ),
+      ),
+    );
   }
 
   Future<void> _delayedHideDialog() async {
