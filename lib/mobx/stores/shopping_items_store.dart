@@ -77,6 +77,8 @@ abstract class ShoppingItemsStoreBase with Store {
   @action
   deleteAllItems() async {
     await shoppingItemsBox?.clear();
+    await getCheckedItems();
+    getAllItems();
   }
 
   Future<void> initHive() async {
