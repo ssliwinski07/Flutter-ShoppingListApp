@@ -27,7 +27,7 @@ class ShoppingList extends StatelessWidget {
             ? NoContentInfoWidget(
                 isAddingButtonVisible: true,
                 onTap: () {
-                  _showAddingItemDialog();
+                  _showAddingItemDialog(context: context);
                 })
             : SizedBox(
                 height: 400,
@@ -59,7 +59,8 @@ class ShoppingList extends StatelessWidget {
                         height: 60,
                         borderRadius: BorderRadius.circular(30),
                         onTap: () {
-                          _showAddingItemDialog(shouldHideDialog: false);
+                          _showAddingItemDialog(
+                              shouldHideDialog: false, context: context);
                         },
                         color: AppColors.green,
                         buttonTitle: const Icon(
