@@ -8,6 +8,7 @@
 "welcomeText" : "Prosta lista zakupów!",
 "areYouSure" : "Ta akcja usunie wszystkie elementy z listy. Jesteś pewny?",
 "confirm" : "Potwierdź",
-"enterItem" : "Wprowadź element..."
+"enterItem" : "Wprowadź element...",
+"itemAdded" : "Dodano element"
 
 }

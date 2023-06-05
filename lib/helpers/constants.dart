@@ -13,3 +13,6 @@ const MAIN_SCREEN_MAIN_ICON_4_DIR = 'lib/res/images/main_icons/banana.png';
 //DATE FORMATS
 const FORMAT_WITH_HOURS = 'yyyy-MM-dd HH:mm';
 const FORMAT_WITHOUT_HOURS = 'yyyy-MM-dd';
+
+//INT
+const ADDING_ITEM_DURATION = 700;
