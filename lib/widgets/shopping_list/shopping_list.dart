@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_reminder/helpers/enums.dart';
 
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/widgets/adding_items_widget/adding_items_widget.dart';
+import 'package:shopping_reminder/widgets/items_manipulation_widget/items_manipulation_widget.dart';
 import 'package:shopping_reminder/widgets/alert_info_widget/info_alert_widget.dart';
 import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
 import 'package:shopping_reminder/widgets/no_content_info_widget/no_content_widget.dart';
@@ -95,8 +96,13 @@ class ShoppingList extends StatelessWidget {
       {bool? shouldHideDialog = true, BuildContext? context}) {
     showDialog(
       context: context!,
-      builder: (context) => AddingItemsWidget(
+      builder: (context) => ItemsManipulationWidget(
         shouldHideDialog: shouldHideDialog,
+        itemManipulationType: ItemManipulationType.add,
+        onTap: (text) {
+          Provider.of<ShoppingItemsStore>(context, listen: false)
+              .addToList(text);
+        },
       ),
     );
   }

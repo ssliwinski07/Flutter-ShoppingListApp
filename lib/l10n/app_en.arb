@@ -27,5 +27,8 @@
   "areYouSure" : "This action will delete all items from the list. Are you sure?",
   "confirm" : "confirm",
   "enterItem" : "Enter item...",
-  "itemAdded" : "Item added"
+  "itemAdded" : "Item added",
+  "itemUpdated" : "Item updated",
+  "update" : "Update",
+  "itemDeleted" : "Item deleted"
 }

@@ -15,4 +15,4 @@ const FORMAT_WITH_HOURS = 'yyyy-MM-dd HH:mm';
 const FORMAT_WITHOUT_HOURS = 'yyyy-MM-dd';
 
 //INT
-const ADDING_ITEM_DURATION = 700;
+const ADDING_ITEM_DURATION = 1000;

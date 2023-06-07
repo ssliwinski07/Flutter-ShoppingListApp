@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_reminder/helpers/enums.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_reminder/widgets/alert_info_widget/snack_bar_info.dart';
+import 'package:shopping_reminder/widgets/items_manipulation_widget/items_manipulation_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShoppingListItem extends StatefulWidget {
   const ShoppingListItem({
@@ -37,6 +41,12 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 leading:
                     _isTappedForDeletion ? _getDeleteIcon() : _getCheckIcon(),
                 title: GestureDetector(
+                  onLongPress: () {
+                    _showUpdateItemDialog(
+                      shouldHideDialog: true,
+                      context: context,
+                    );
+                  },
                   onTap: () {
                     setState(() {});
                     _isTappedForDeletion = !_isTappedForDeletion;
@@ -59,12 +69,30 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
     );
   }
 
+  _showUpdateItemDialog(
+      {bool? shouldHideDialog = true, BuildContext? context}) {
+    showDialog(
+      context: context!,
+      builder: (context) => ItemsManipulationWidget(
+        shouldHideDialog: shouldHideDialog,
+        itemManipulationType: ItemManipulationType.update,
+        onTap: (text) {
+          Provider.of<ShoppingItemsStore>(context, listen: false)
+              .updateItem(widget.shoppingItem!, text);
+        },
+      ),
+    );
+  }
+
   _getDeleteIcon() {
     return GestureDetector(
       onTap: () {
         Provider.of<ShoppingItemsStore>(context, listen: false)
             .removeFromList(_item);
         _isTappedForDeletion = !_isTappedForDeletion;
+        SnackBarInfo.show(
+            context: context,
+            infoMessage: AppLocalizations.of(context).itemDeleted);
       },
       child: const Icon(
         Icons.remove,

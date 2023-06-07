@@ -1,0 +1,4 @@
+enum ItemManipulationType {
+  add,
+  update,
+}

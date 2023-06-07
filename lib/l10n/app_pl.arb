@@ -9,6 +9,9 @@
 "areYouSure" : "Ta akcja usunie wszystkie elementy z listy. Jesteś pewny?",
 "confirm" : "Potwierdź",
 "enterItem" : "Wprowadź element...",
-"itemAdded" : "Dodano element"
+"itemAdded" : "Dodano element",
+"itemUpdated" : "Zaktualizowano element",
+"update" : "Aktualizuj",
+"itemDeleted" : "Usunięto element"
 
 }

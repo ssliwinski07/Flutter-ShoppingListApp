@@ -57,6 +57,54 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
     });
   }
 
+  late final _$getCheckedItemsAsyncAction =
+      AsyncAction('ShoppingItemsStoreBase.getCheckedItems', context: context);
+
+  @override
+  Future getCheckedItems() {
+    return _$getCheckedItemsAsyncAction.run(() => super.getCheckedItems());
+  }
+
+  late final _$updateItemAsyncAction =
+      AsyncAction('ShoppingItemsStoreBase.updateItem', context: context);
+
+  @override
+  Future updateItem(ShoppingItemModel item, String text) {
+    return _$updateItemAsyncAction.run(() => super.updateItem(item, text));
+  }
+
+  late final _$addToListAsyncAction =
+      AsyncAction('ShoppingItemsStoreBase.addToList', context: context);
+
+  @override
+  Future addToList(String text) {
+    return _$addToListAsyncAction.run(() => super.addToList(text));
+  }
+
+  late final _$removeFromListAsyncAction =
+      AsyncAction('ShoppingItemsStoreBase.removeFromList', context: context);
+
+  @override
+  Future removeFromList(ShoppingItemModel item) {
+    return _$removeFromListAsyncAction.run(() => super.removeFromList(item));
+  }
+
+  late final _$itemCheckAsyncAction =
+      AsyncAction('ShoppingItemsStoreBase.itemCheck', context: context);
+
+  @override
+  Future itemCheck(ShoppingItemModel item) {
+    return _$itemCheckAsyncAction.run(() => super.itemCheck(item));
+  }
+
+  late final _$unCheckItemAsyncAction =
+      AsyncAction('ShoppingItemsStoreBase.unCheckItem', context: context);
+
+  @override
+  Future unCheckItem(ShoppingItemModel item) {
+    return _$unCheckItemAsyncAction.run(() => super.unCheckItem(item));
+  }
+
   late final _$deleteAllItemsAsyncAction =
       AsyncAction('ShoppingItemsStoreBase.deleteAllItems', context: context);
 
@@ -74,61 +122,6 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
         name: 'ShoppingItemsStoreBase.getAllItems');
     try {
       return super.getAllItems();
-    } finally {
-      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic getCheckedItems() {
-    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
-        name: 'ShoppingItemsStoreBase.getCheckedItems');
-    try {
-      return super.getCheckedItems();
-    } finally {
-      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic addToList(String text) {
-    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
-        name: 'ShoppingItemsStoreBase.addToList');
-    try {
-      return super.addToList(text);
-    } finally {
-      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic removeFromList(ShoppingItemModel item) {
-    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
-        name: 'ShoppingItemsStoreBase.removeFromList');
-    try {
-      return super.removeFromList(item);
-    } finally {
-      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic itemCheck(ShoppingItemModel item) {
-    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
-        name: 'ShoppingItemsStoreBase.itemCheck');
-    try {
-      return super.itemCheck(item);
-    } finally {
-      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic unCheckItem(ShoppingItemModel item) {
-    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
-        name: 'ShoppingItemsStoreBase.unCheckItem');
-    try {
-      return super.unCheckItem(item);
     } finally {
       _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
     }

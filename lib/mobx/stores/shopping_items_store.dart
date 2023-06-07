@@ -43,6 +43,17 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   @action
+  updateItem(ShoppingItemModel item, String text) async {
+    item.name = text;
+    if (item.isChecked == true) {
+      item.isChecked = false;
+      await getCheckedItems();
+    }
+
+    await shoppingItemsBox?.put(item.key, item);
+  }
+
+  @action
   addToList(String text) async {
     final newItem = ShoppingItemModel(
       id: UniqueKey().hashCode,
