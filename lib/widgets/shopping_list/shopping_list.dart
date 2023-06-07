@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_reminder/helpers/enums.dart';
 
+import 'package:shopping_reminder/helpers/enums.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:shopping_reminder/widgets/items_manipulation_widget/items_manipulation_widget.dart';

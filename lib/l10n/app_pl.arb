@@ -12,6 +12,9 @@
 "itemAdded" : "Dodano element",
 "itemUpdated" : "Zaktualizowano element",
 "update" : "Aktualizuj",
-"itemDeleted" : "Usunięto element"
+"itemDeleted" : "Usunięto element",
+"errorMessage" : "Wystąpił błąd",
+"itemsDeleted" : "Usunięto wszystkie elementy"
+
 
 }

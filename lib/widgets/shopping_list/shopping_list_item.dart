@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
 import 'package:shopping_reminder/helpers/enums.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_reminder/widgets/alert_info_widget/snack_bar_info.dart';
 import 'package:shopping_reminder/widgets/items_manipulation_widget/items_manipulation_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 
 class ShoppingListItem extends StatefulWidget {
   const ShoppingListItem({
@@ -24,6 +25,9 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
   bool _isTappedForDeletion = false;
   ShoppingItemModel get _item => widget.shoppingItem!;
   bool get _isItemChecked => widget.shoppingItem!.isChecked;
+
+  final MessageInfoService _messageService =
+      GetIt.instance<MessageInfoService>();
 
   @override
   Widget build(BuildContext context) {
@@ -90,12 +94,21 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
   _getDeleteIcon() {
     return GestureDetector(
       onTap: () {
-        Provider.of<ShoppingItemsStore>(context, listen: false)
-            .removeFromList(_item);
-        _isTappedForDeletion = !_isTappedForDeletion;
-        SnackBarInfo.show(
+        try {
+          Provider.of<ShoppingItemsStore>(context, listen: false)
+              .removeFromList(_item);
+          _isTappedForDeletion = !_isTappedForDeletion;
+          _messageService.showMessage(
+              context: context,
+              infoType: InfoTypes.info,
+              infoMessage: AppLocalizations.of(context).itemDeleted);
+        } catch (e) {
+          _messageService.showMessage(
             context: context,
-            infoMessage: AppLocalizations.of(context).itemDeleted);
+            infoMessage: AppLocalizations.of(context).errorMessage,
+            infoType: InfoTypes.alert,
+          );
+        }
       },
       child: const Icon(
         Icons.remove,

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
+import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/helpers/enums.dart';
 
 class InfoAlertWidget extends StatelessWidget {
-  const InfoAlertWidget({
+  InfoAlertWidget({
     super.key,
     this.onTap,
     this.infoTitle,
@@ -13,6 +17,9 @@ class InfoAlertWidget extends StatelessWidget {
   final String? infoTitle;
   final String? leftInfoButtonTitle;
   final String? rightInfoButtonTitle;
+
+  final MessageInfoService _messageService =
+      GetIt.instance<MessageInfoService>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +33,22 @@ class InfoAlertWidget extends StatelessWidget {
       actions: [
         GestureDetector(
           onTap: () {
-            onTap!();
-            Navigator.pop(context);
+            try {
+              onTap!();
+              _messageService.showMessage(
+                context: context,
+                infoMessage: AppLocalizations.of(context).itemsDeleted,
+                infoType: InfoTypes.info,
+              );
+              Navigator.pop(context);
+            } catch (e) {
+              _messageService.showMessage(
+                context: context,
+                infoMessage: AppLocalizations.of(context).errorMessage,
+                infoType: InfoTypes.alert,
+              );
+              Navigator.pop(context);
+            }
           },
           child: Padding(
             padding: const EdgeInsets.only(

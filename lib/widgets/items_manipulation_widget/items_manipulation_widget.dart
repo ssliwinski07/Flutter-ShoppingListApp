@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
 import 'package:shopping_reminder/helpers/constants.dart';
 import 'package:shopping_reminder/helpers/enums.dart';
 import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
+import 'package:get_it/get_it.dart';
 
 class ItemsManipulationWidget extends StatefulWidget {
   const ItemsManipulationWidget({
@@ -30,6 +32,9 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
   bool _isTextEmpty = true;
   bool _isItemChanged = false;
   bool _isTheSameText = false;
+
+  final MessageInfoService _messageService =
+      GetIt.instance<MessageInfoService>();
 
   @override
   void initState() {
@@ -202,12 +207,21 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
   }
 
   _onTap() {
-    widget.onTap!(_textController.text.trim());
-    _textController.clear();
-    _isItemChanged = true;
-    _itemChanged();
-    if (widget.shouldHideDialog == true) {
-      _delayeDialogHide();
+    try {
+      widget.onTap!(_textController.text.trim());
+      _textController.clear();
+      _isItemChanged = true;
+      _itemChanged();
+      if (widget.shouldHideDialog == true) {
+        _delayeDialogHide();
+      }
+    } catch (e) {
+      _messageService.showMessage(
+        context: context,
+        infoMessage: AppLocalizations.of(context).errorMessage,
+        infoType: InfoTypes.alert,
+      );
+      Navigator.pop(context);
     }
   }
 

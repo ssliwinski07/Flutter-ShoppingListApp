@@ -30,5 +30,7 @@
   "itemAdded" : "Item added",
   "itemUpdated" : "Item updated",
   "update" : "Update",
-  "itemDeleted" : "Item deleted"
+  "itemDeleted" : "Item deleted",
+  "errorMessage" : "An error occured",
+  "itemsDeleted" : "All elements have been deleted"
 }
