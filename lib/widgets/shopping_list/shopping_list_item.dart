@@ -77,6 +77,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
       context: context!,
       builder: (context) => ItemsManipulationWidget(
         shouldHideDialog: shouldHideDialog,
+        shoppingItem: widget.shoppingItem,
         itemManipulationType: ItemManipulationType.update,
         onTap: (text) {
           Provider.of<ShoppingItemsStore>(context, listen: false)

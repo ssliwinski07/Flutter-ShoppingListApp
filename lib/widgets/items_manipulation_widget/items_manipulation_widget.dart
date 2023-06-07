@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:shopping_reminder/helpers/constants.dart';
 import 'package:shopping_reminder/helpers/enums.dart';
+import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 
 class ItemsManipulationWidget extends StatefulWidget {
@@ -10,11 +11,13 @@ class ItemsManipulationWidget extends StatefulWidget {
     this.shouldHideDialog,
     this.onTap,
     this.itemManipulationType,
+    this.shoppingItem,
   });
 
   final bool? shouldHideDialog;
   final Function(String text)? onTap;
   final ItemManipulationType? itemManipulationType;
+  final ShoppingItemModel? shoppingItem;
 
   @override
   State<ItemsManipulationWidget> createState() =>
@@ -26,11 +29,16 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
 
   bool _isTextEmpty = true;
   bool _isItemChanged = false;
+  bool _isTheSameText = false;
 
   @override
   void initState() {
     super.initState();
     _textController.addListener(_textListener);
+    if (widget.shoppingItem != null &&
+        widget.itemManipulationType == ItemManipulationType.update) {
+      _textController.text = widget.shoppingItem!.name;
+    }
   }
 
   @override
@@ -74,9 +82,9 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
   _getActions(ItemManipulationType itemManipulationType) {
     switch (itemManipulationType) {
       case ItemManipulationType.add:
-        return _getActionsForAddedItem();
+        return _getActionsForAddItem();
       case ItemManipulationType.update:
-        return _getActionsForUpdatedItem();
+        return _getActionsForUpdateItem();
     }
   }
 
@@ -89,7 +97,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
     }
   }
 
-  List<Widget> _getActionsForAddedItem() {
+  List<Widget> _getActionsForAddItem() {
     var items = [
       GestureDetector(
         onTap: () {
@@ -151,7 +159,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
     return items;
   }
 
-  List<Widget> _getActionsForUpdatedItem() {
+  List<Widget> _getActionsForUpdateItem() {
     var items = [
       GestureDetector(
         onTap: () {
@@ -171,7 +179,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
         ),
       ),
       GestureDetector(
-        onTap: _isTextEmpty == true ? null : _onTap,
+        onTap: _isTextEmpty == true || _isTheSameText == true ? null : _onTap,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 10.0,
@@ -182,7 +190,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
             AppLocalizations.of(context).update.toUpperCase(),
             style: TextStyle(
               fontSize: 16.0,
-              color: _isTextEmpty
+              color: _isTextEmpty || _isTheSameText
                   ? const Color.fromARGB(255, 214, 214, 214)
                   : Colors.grey,
             ),
@@ -194,7 +202,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
   }
 
   _onTap() {
-    widget.onTap!(_textController.text);
+    widget.onTap!(_textController.text.trim());
     _textController.clear();
     _isItemChanged = true;
     _itemChanged();
@@ -225,7 +233,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
 
   Future<void> _delayeDialogHide() async {
     Future.delayed(const Duration(milliseconds: ADDING_ITEM_DURATION))
-        .then((value) => Navigator.pop(context));
+        .then((_) => Navigator.pop(context));
   }
 
   Future<void> _itemChanged() async {
@@ -240,6 +248,11 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
   void _textListener() {
     setState(() {
       _isTextEmpty = _textController.text.isEmpty;
+      if (widget.itemManipulationType == ItemManipulationType.update &&
+          widget.shoppingItem != null) {
+        _isTheSameText =
+            _textController.text.trim() == widget.shoppingItem!.name;
+      }
     });
   }
 }
