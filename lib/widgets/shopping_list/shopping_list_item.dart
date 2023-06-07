@@ -41,12 +41,14 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                 leading:
                     _isTappedForDeletion ? _getDeleteIcon() : _getCheckIcon(),
                 title: GestureDetector(
-                  onLongPress: () {
-                    _showUpdateItemDialog(
-                      shouldHideDialog: true,
-                      context: context,
-                    );
-                  },
+                  onLongPress: _isTappedForDeletion
+                      ? null
+                      : () {
+                          _showUpdateItemDialog(
+                            shouldHideDialog: true,
+                            context: context,
+                          );
+                        },
                   onTap: () {
                     setState(() {});
                     _isTappedForDeletion = !_isTappedForDeletion;
