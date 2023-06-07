@@ -109,7 +109,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
         ),
       ),
       GestureDetector(
-        onTap: _isTextEmpty == true ? null : onTap,
+        onTap: _isTextEmpty == true ? null : _onTap,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 10.0,
@@ -171,7 +171,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
         ),
       ),
       GestureDetector(
-        onTap: _isTextEmpty == true ? null : onTap,
+        onTap: _isTextEmpty == true ? null : _onTap,
         child: Padding(
           padding: const EdgeInsets.only(
             left: 10.0,
@@ -193,7 +193,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
     return items;
   }
 
-  onTap() {
+  _onTap() {
     widget.onTap!(_textController.text);
     _textController.clear();
     _isItemChanged = true;
