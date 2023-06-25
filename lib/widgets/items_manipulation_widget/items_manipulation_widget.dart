@@ -208,9 +208,6 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
 
   _onTap() {
     try {
-      if (_textController.text.contains('dupa')) {
-        throw ();
-      }
       widget.onTap!(_textController.text.trim());
       _textController.clear();
       _isItemChanged = true;
