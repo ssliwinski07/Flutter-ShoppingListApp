@@ -42,8 +42,9 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
             child: Padding(
               padding: const EdgeInsets.only(right: 80),
               child: ListTile(
-                leading:
-                    _isTappedForDeletion ? _getDeleteIcon() : _getCheckIcon(),
+                leading: _isTappedForDeletion
+                    ? _getDeleteIcon()
+                    : _getCheckIcon(context),
                 title: GestureDetector(
                   onLongPress: _isTappedForDeletion
                       ? null
@@ -117,15 +118,29 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
     );
   }
 
-  _getCheckIcon() {
+  _getCheckIcon(BuildContext context) {
     return GestureDetector(
       onTap: () {
         if (_isItemChecked == false) {
-          Provider.of<ShoppingItemsStore>(context, listen: false)
-              .itemCheck(_item);
+          try {
+            Provider.of<ShoppingItemsStore>(context, listen: false)
+                .itemCheck(_item);
+          } catch (e) {
+            _messageService.showMessage(
+              infoMessage: AppLocalizations.of(context).errorMessage,
+              infoType: InfoTypes.alert,
+              context: context,
+            );
+          }
         } else {
-          Provider.of<ShoppingItemsStore>(context, listen: false)
-              .unCheckItem(_item);
+          try {
+            Provider.of<ShoppingItemsStore>(context, listen: false)
+                .unCheckItem(_item);
+          } catch (e) {
+            _messageService.showMessage(
+                infoMessage: AppLocalizations.of(context).errorMessage,
+                infoType: InfoTypes.alert);
+          }
         }
       },
       child: Container(

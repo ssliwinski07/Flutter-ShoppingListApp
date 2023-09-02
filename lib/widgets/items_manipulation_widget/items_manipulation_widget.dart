@@ -33,7 +33,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
   bool _isItemChanged = false;
   bool _isTheSameText = false;
 
-  final MessageInfoService _messageService =
+  MessageInfoService get _messageService =>
       GetIt.instance<MessageInfoService>();
 
   @override
