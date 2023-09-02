@@ -24,13 +24,12 @@ abstract class ShoppingItemsStoreBase with Store {
   List<ShoppingItemModel>? shoppingItems = [];
 
   @action
-  getAllItems() {
+  void getAllItems() {
     countAllItems = shoppingItemsBox!.length;
-    return countAllItems;
   }
 
   @action
-  getCheckedItems() async {
+  Future<void> getCheckedItems() async {
     int count = 0;
     var list = Hive.box<ShoppingItemModel>('shoppingItems').values.toList();
     for (ShoppingItemModel item in list) {
@@ -39,11 +38,10 @@ abstract class ShoppingItemsStoreBase with Store {
       }
     }
     countCheckedItems = count;
-    return countCheckedItems;
   }
 
   @action
-  updateItem(ShoppingItemModel item, String text) async {
+  Future<void> updateItem(ShoppingItemModel item, String text) async {
     item.name = text;
     if (item.isChecked == true) {
       item.isChecked = false;
@@ -54,7 +52,7 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   @action
-  addToList(String text) async {
+  Future<void> addToList(String text) async {
     final newItem = ShoppingItemModel(
       id: UniqueKey().hashCode,
       isChecked: false,
@@ -65,28 +63,28 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   @action
-  removeFromList(ShoppingItemModel item) async {
+  Future<void> removeFromList(ShoppingItemModel item) async {
     await shoppingItemsBox?.delete(item.key);
     await getCheckedItems();
     getAllItems();
   }
 
   @action
-  itemCheck(ShoppingItemModel item) async {
+  Future<void> itemCheck(ShoppingItemModel item) async {
     item.isChecked = true;
     shoppingItemsBox?.put(item.key, item);
     await getCheckedItems();
   }
 
   @action
-  unCheckItem(ShoppingItemModel item) async {
+  Future<void> unCheckItem(ShoppingItemModel item) async {
     item.isChecked = false;
     shoppingItemsBox?.put(item.key, item);
     await getCheckedItems();
   }
 
   @action
-  deleteAllItems() async {
+  Future<void> deleteAllItems() async {
     await shoppingItemsBox?.clear();
     await getCheckedItems();
     getAllItems();

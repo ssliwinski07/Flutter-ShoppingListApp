@@ -26,8 +26,16 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
   ShoppingItemModel get _item => widget.shoppingItem!;
   bool get _isItemChecked => widget.shoppingItem!.isChecked;
 
-  final MessageInfoService _messageService =
+  late final ShoppingItemsStore _store;
+
+  MessageInfoService get _messageService =>
       GetIt.instance<MessageInfoService>();
+
+  @override
+  void initState() {
+    super.initState();
+    _store = Provider.of<ShoppingItemsStore>(context, listen: false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +51,11 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
               padding: const EdgeInsets.only(right: 80),
               child: ListTile(
                 leading: _isTappedForDeletion
-                    ? _getDeleteIcon()
-                    : _getCheckIcon(context),
+                    ? _getDeleteIcon(context: context, store: _store)
+                    : _getCheckIcon(
+                        context: context,
+                        store: _store,
+                      ),
                 title: GestureDetector(
                   onLongPress: _isTappedForDeletion
                       ? null
@@ -52,6 +63,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
                           _showUpdateItemDialog(
                             shouldHideDialog: true,
                             context: context,
+                            store: _store,
                           );
                         },
                   onTap: () {
@@ -77,7 +89,9 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
   }
 
   _showUpdateItemDialog(
-      {bool? shouldHideDialog = true, BuildContext? context}) {
+      {bool? shouldHideDialog = true,
+      BuildContext? context,
+      required ShoppingItemsStore store}) {
     showDialog(
       context: context!,
       builder: (context) => ItemsManipulationWidget(
@@ -85,19 +99,20 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
         shoppingItem: widget.shoppingItem,
         itemManipulationType: ItemManipulationType.update,
         onTap: (text) {
-          Provider.of<ShoppingItemsStore>(context, listen: false)
-              .updateItem(widget.shoppingItem!, text);
+          store.updateItem(widget.shoppingItem!, text);
         },
       ),
     );
   }
 
-  _getDeleteIcon() {
+  _getDeleteIcon({
+    required ShoppingItemsStore store,
+    required BuildContext context,
+  }) {
     return GestureDetector(
       onTap: () {
         try {
-          Provider.of<ShoppingItemsStore>(context, listen: false)
-              .removeFromList(_item);
+          store.removeFromList(_item);
           _isTappedForDeletion = !_isTappedForDeletion;
           _messageService.showMessage(
               context: context,
@@ -118,13 +133,13 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
     );
   }
 
-  _getCheckIcon(BuildContext context) {
+  _getCheckIcon(
+      {required BuildContext context, required ShoppingItemsStore store}) {
     return GestureDetector(
       onTap: () {
         if (_isItemChecked == false) {
           try {
-            Provider.of<ShoppingItemsStore>(context, listen: false)
-                .itemCheck(_item);
+            store.itemCheck(_item);
           } catch (e) {
             _messageService.showMessage(
               infoMessage: AppLocalizations.of(context).errorMessage,
@@ -134,8 +149,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
           }
         } else {
           try {
-            Provider.of<ShoppingItemsStore>(context, listen: false)
-                .unCheckItem(_item);
+            store.unCheckItem(_item);
           } catch (e) {
             _messageService.showMessage(
                 infoMessage: AppLocalizations.of(context).errorMessage,

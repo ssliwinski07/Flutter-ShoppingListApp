@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_final_fields
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:shopping_reminder/helpers/methods/locale.dart';
@@ -17,13 +15,15 @@ class ShoppingListsView extends StatefulWidget {
 }
 
 class _ShoppingListsViewState extends State<ShoppingListsView> {
-  DateTime _today = DateTime.now();
+  final DateTime _today = DateTime.now();
 
   bool _isLoading = false;
+  late ShoppingItemsStore _store;
 
   @override
   void initState() {
     super.initState();
+    _store = Provider.of<ShoppingItemsStore>(context, listen: false);
     _loading();
   }
 
@@ -54,17 +54,11 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                       Text(AppLocalizations.of(context).shoppingLists),
                       Observer(
                         builder: (_) {
-                          return (Provider.of<ShoppingItemsStore>(context,
-                                              listen: false)
-                                          .shoppingItems ==
-                                      null ||
-                                  Provider.of<ShoppingItemsStore>(context,
-                                          listen: false)
-                                      .shoppingItems!
-                                      .isEmpty)
+                          return (_store.shoppingItems == null ||
+                                  _store.shoppingItems!.isEmpty)
                               ? const SizedBox()
                               : Text(
-                                  '${Provider.of<ShoppingItemsStore>(context, listen: false).countCheckedItems}/${Provider.of<ShoppingItemsStore>(context, listen: false).countAllItems}');
+                                  '${_store.countCheckedItems}/${_store.countAllItems}');
                         },
                       ),
                       const SizedBox(width: 40),
@@ -85,14 +79,12 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
   }
 
   Future<void> _loading() async {
-    Future.wait([
-      Provider.of<ShoppingItemsStore>(context, listen: false).initHive()
-    ]).then((_) {
+    Future.wait([_store.initHive()]).then((_) {
       setState(() {
         _isLoading = !_isLoading;
       });
-      Provider.of<ShoppingItemsStore>(context, listen: false).getAllItems();
-      Provider.of<ShoppingItemsStore>(context, listen: false).getCheckedItems();
+      _store.getAllItems();
+      _store.getCheckedItems();
     });
   }
 }

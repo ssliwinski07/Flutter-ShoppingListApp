@@ -96,7 +96,7 @@ class _MainScreenViewState extends State<MainScreenView> {
   Future _loadingScreen() async {
     Future.wait([
       initializeDateFormatting(LocaleFormats.getLocale()),
-      Future.delayed(const Duration(seconds: 4))
+      Future.delayed(const Duration(seconds: 5))
     ]).then((_) {
       if (mounted) {
         setState(() {
