@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
 import 'package:shopping_reminder/helpers/constants.dart';
 import 'package:shopping_reminder/helpers/enums.dart';
@@ -66,7 +66,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
           cursorColor: Colors.black,
           controller: _textController,
           decoration: InputDecoration(
-            hintText: AppLocalizations.of(context).enterItem,
+            hintText: context.translate.enterItem,
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Colors.grey,
@@ -113,7 +113,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
             bottom: 10.0,
           ),
           child: Text(
-            AppLocalizations.of(context).cancel.toUpperCase(),
+            context.translate.cancel.toUpperCase(),
             style: const TextStyle(
               color: Color.fromARGB(255, 226, 81, 70),
               fontSize: 16.0,
@@ -130,7 +130,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
             right: 10.0,
           ),
           child: Text(
-            AppLocalizations.of(context).add.toUpperCase(),
+            context.translate.add.toUpperCase(),
             style: TextStyle(
               fontSize: 16.0,
               color: _isTextEmpty
@@ -153,7 +153,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
           right: 10.0,
         ),
         child: Text(
-          AppLocalizations.of(context).itemAdded.toUpperCase(),
+          context.translate.itemAdded.toUpperCase(),
           style: const TextStyle(
             fontSize: 16.0,
             color: AppColors.green,
@@ -175,7 +175,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
             bottom: 10.0,
           ),
           child: Text(
-            AppLocalizations.of(context).cancel.toUpperCase(),
+            context.translate.cancel.toUpperCase(),
             style: const TextStyle(
               color: Color.fromARGB(255, 226, 81, 70),
               fontSize: 16.0,
@@ -192,7 +192,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
             right: 10.0,
           ),
           child: Text(
-            AppLocalizations.of(context).update.toUpperCase(),
+            context.translate.update.toUpperCase(),
             style: TextStyle(
               fontSize: 16.0,
               color: _isTextEmpty || _isTheSameText
@@ -218,7 +218,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
     } catch (e) {
       _messageService.showMessage(
         context: context,
-        infoMessage: AppLocalizations.of(context).errorMessage,
+        infoMessage: context.translate.errorMessage,
         infoType: InfoTypes.alert,
       );
       Navigator.pop(context);
@@ -234,7 +234,7 @@ class _ItemsManipulationWidgetState extends State<ItemsManipulationWidget> {
           right: 10.0,
         ),
         child: Text(
-          AppLocalizations.of(context).itemUpdated.toUpperCase(),
+          context.translate.itemUpdated.toUpperCase(),
           style: const TextStyle(
             fontSize: 16.0,
             color: AppColors.green,

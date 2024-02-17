@@ -6,7 +6,7 @@ import 'package:shopping_reminder/models/shopping_item_model.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_reminder/widgets/items_manipulation_widget/items_manipulation_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:get_it/get_it.dart';
 
 class ShoppingListItem extends StatefulWidget {
@@ -117,11 +117,11 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
           _messageService.showMessage(
               context: context,
               infoType: InfoTypes.info,
-              infoMessage: AppLocalizations.of(context).itemDeleted);
+              infoMessage: context.translate.itemDeleted);
         } catch (e) {
           _messageService.showMessage(
             context: context,
-            infoMessage: AppLocalizations.of(context).errorMessage,
+            infoMessage: context.translate.errorMessage,
             infoType: InfoTypes.alert,
           );
         }
@@ -142,7 +142,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
             store.itemCheck(_item);
           } catch (e) {
             _messageService.showMessage(
-              infoMessage: AppLocalizations.of(context).errorMessage,
+              infoMessage: context.translate.errorMessage,
               infoType: InfoTypes.alert,
               context: context,
             );
@@ -152,7 +152,7 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
             store.unCheckItem(_item);
           } catch (e) {
             _messageService.showMessage(
-                infoMessage: AppLocalizations.of(context).errorMessage,
+                infoMessage: context.translate.errorMessage,
                 infoType: InfoTypes.alert);
           }
         }

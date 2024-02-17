@@ -9,7 +9,7 @@ import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart'
 import 'package:shopping_reminder/widgets/no_content_info_widget/no_content_widget.dart';
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list_item.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingList extends StatelessWidget {
@@ -118,9 +118,9 @@ class ShoppingList extends StatelessWidget {
         onTap: () {
           store.deleteAllItems();
         },
-        infoTitle: AppLocalizations.of(context).areYouSure,
-        leftInfoButtonTitle: AppLocalizations.of(context).confirm,
-        rightInfoButtonTitle: AppLocalizations.of(context).cancel,
+        infoTitle: context.translate.areYouSure,
+        leftInfoButtonTitle: context.translate.confirm,
+        rightInfoButtonTitle: context.translate.cancel,
       ),
     );
   }

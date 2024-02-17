@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:shopping_reminder/helpers/constants.dart';
 
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoContentInfoWidget extends StatelessWidget {
   const NoContentInfoWidget({
@@ -31,7 +31,7 @@ class NoContentInfoWidget extends StatelessWidget {
               height: 10.0,
             ),
             Text(
-              AppLocalizations.of(context).noContent,
+              context.translate.noContent,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class NoContentInfoWidget extends StatelessWidget {
                     buttonTitle: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        AppLocalizations.of(context).startAdding,
+                        context.translate.startAdding,
                         textAlign: TextAlign.center,
                         maxLines: 4,
                         style: const TextStyle(

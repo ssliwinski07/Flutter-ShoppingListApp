@@ -4,7 +4,7 @@ import 'package:shopping_reminder/helpers/methods/locale.dart';
 import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
 import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:shopping_reminder/widgets/shopping_list/shopping_list.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:provider/provider.dart';
 
 class ShoppingListsView extends StatefulWidget {
@@ -51,7 +51,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                         child: const Icon(Icons.arrow_back_ios),
                         onTap: () => Navigator.pop(context, true),
                       ),
-                      Text(AppLocalizations.of(context).shoppingLists),
+                      Text(context.translate.shoppingLists),
                       Observer(
                         builder: (_) {
                           return (_store.shoppingItems == null ||

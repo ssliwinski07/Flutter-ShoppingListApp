@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
 import 'package:get_it/get_it.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:shopping_reminder/helpers/enums.dart';
 
 class InfoAlertWidget extends StatelessWidget {
@@ -37,14 +37,14 @@ class InfoAlertWidget extends StatelessWidget {
               onTap!();
               _messageService.showMessage(
                 context: context,
-                infoMessage: AppLocalizations.of(context).itemsDeleted,
+                infoMessage: context.translate.itemsDeleted,
                 infoType: InfoTypes.info,
               );
               Navigator.pop(context);
             } catch (e) {
               _messageService.showMessage(
                 context: context,
-                infoMessage: AppLocalizations.of(context).errorMessage,
+                infoMessage: context.translate.errorMessage,
                 infoType: InfoTypes.alert,
               );
               Navigator.pop(context);
