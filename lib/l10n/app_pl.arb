@@ -14,7 +14,6 @@
 "update" : "Aktualizuj",
 "itemDeleted" : "Usunięto element",
 "errorMessage" : "Wystąpił błąd",
-"itemsDeleted" : "Usunięto wszystkie elementy"
-
-
+"itemsDeleted" : "Usunięto wszystkie elementy",
+"changeLanguage" : "Zmień język aplikacji"
 }

@@ -61,7 +61,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.getCheckedItems', context: context);
 
   @override
-  Future getCheckedItems() {
+  Future<void> getCheckedItems() {
     return _$getCheckedItemsAsyncAction.run(() => super.getCheckedItems());
   }
 
@@ -69,7 +69,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.updateItem', context: context);
 
   @override
-  Future updateItem(ShoppingItemModel item, String text) {
+  Future<void> updateItem(ShoppingItemModel item, String text) {
     return _$updateItemAsyncAction.run(() => super.updateItem(item, text));
   }
 
@@ -77,7 +77,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.addToList', context: context);
 
   @override
-  Future addToList(String text) {
+  Future<void> addToList(String text) {
     return _$addToListAsyncAction.run(() => super.addToList(text));
   }
 
@@ -85,7 +85,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.removeFromList', context: context);
 
   @override
-  Future removeFromList(ShoppingItemModel item) {
+  Future<void> removeFromList(ShoppingItemModel item) {
     return _$removeFromListAsyncAction.run(() => super.removeFromList(item));
   }
 
@@ -93,7 +93,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.itemCheck', context: context);
 
   @override
-  Future itemCheck(ShoppingItemModel item) {
+  Future<void> itemCheck(ShoppingItemModel item) {
     return _$itemCheckAsyncAction.run(() => super.itemCheck(item));
   }
 
@@ -101,7 +101,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.unCheckItem', context: context);
 
   @override
-  Future unCheckItem(ShoppingItemModel item) {
+  Future<void> unCheckItem(ShoppingItemModel item) {
     return _$unCheckItemAsyncAction.run(() => super.unCheckItem(item));
   }
 
@@ -109,7 +109,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       AsyncAction('ShoppingItemsStoreBase.deleteAllItems', context: context);
 
   @override
-  Future deleteAllItems() {
+  Future<void> deleteAllItems() {
     return _$deleteAllItemsAsyncAction.run(() => super.deleteAllItems());
   }
 
@@ -117,7 +117,7 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
       ActionController(name: 'ShoppingItemsStoreBase', context: context);
 
   @override
-  dynamic getAllItems() {
+  void getAllItems() {
     final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
         name: 'ShoppingItemsStoreBase.getAllItems');
     try {

@@ -32,5 +32,6 @@
   "update" : "Update",
   "itemDeleted" : "Item deleted",
   "errorMessage" : "An error occured",
-  "itemsDeleted" : "All elements have been deleted"
+  "itemsDeleted" : "All elements have been deleted",
+  "changeLanguage" : "Change app language"
 }

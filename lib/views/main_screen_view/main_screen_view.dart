@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:shopping_reminder/extensions/translations.dart';
-import 'package:shopping_reminder/helpers/methods/locale.dart';
-import 'package:shopping_reminder/helpers/constants.dart';
-import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/view_models/main_screen_view_model.dart';
-import 'package:shopping_reminder/views/shopping_lists_view/shopping_lists_view.dart';
-import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
-import 'package:shopping_reminder/widgets/loading_screen_animated_widgets/loading_screen_animated_icon.dart';
+import "package:provider/provider.dart";
+import "package:shopping_reminder/extensions/extensions.dart";
+import "package:shopping_reminder/helpers/helpers.dart";
+import "package:shopping_reminder/mobx/stores/change_language_store.dart";
+import "package:shopping_reminder/res/res.dart";
+import "package:shopping_reminder/view_models/view_models.dart";
+import "package:shopping_reminder/views/views.dart";
+import "package:shopping_reminder/widgets/widgets.dart";
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -21,12 +21,14 @@ class _MainScreenViewState extends State<MainScreenView> {
   // ignore: prefer_final_fields
   bool _isLoading = true;
   late MainScreenViewModel _viewModel;
+  late ChangeLanguageStore _store;
 
   @override
   void initState() {
     super.initState();
     _loadingScreen();
     _viewModel = MainScreenViewModel();
+    _store = Provider.of<ChangeLanguageStore>(context, listen: false);
   }
 
   @override
@@ -54,9 +56,10 @@ class _MainScreenViewState extends State<MainScreenView> {
               scale: 2,
             ),
             const SizedBox(
-              height: 110,
+              height: 50,
             ),
             Text(
+              textAlign: TextAlign.center,
               context.translate.welcomeText,
               style: const TextStyle(
                 fontSize: 40,
@@ -64,7 +67,7 @@ class _MainScreenViewState extends State<MainScreenView> {
               ),
             ),
             const SizedBox(
-              height: 120,
+              height: 50,
             ),
             SRButton(
               color: AppColors.green,
@@ -84,6 +87,22 @@ class _MainScreenViewState extends State<MainScreenView> {
               },
               buttonTitle: Text(
                 context.translate.begin,
+                style: const TextStyle(color: AppColors.white, fontSize: 20),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            SRButton(
+              color: AppColors.green,
+              borderRadius: BorderRadius.circular(40),
+              height: 50,
+              width: 250,
+              onTap: () {
+                _store.setLocale();
+              },
+              buttonTitle: Text(
+                context.translate.changeLanguage,
                 style: const TextStyle(color: AppColors.white, fontSize: 20),
               ),
             ),

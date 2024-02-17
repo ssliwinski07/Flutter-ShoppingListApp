@@ -1,0 +1,1 @@
+export "shopping_item_model.dart";
