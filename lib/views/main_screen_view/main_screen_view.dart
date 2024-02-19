@@ -4,11 +4,11 @@ import 'package:intl/date_symbol_data_local.dart';
 import "package:provider/provider.dart";
 import "package:shopping_reminder/extensions/extensions.dart";
 import "package:shopping_reminder/helpers/helpers.dart";
-import "package:shopping_reminder/mobx/stores/change_language_store.dart";
+import "package:shopping_reminder/mobx/stores.dart";
 import "package:shopping_reminder/res/res.dart";
-import "package:shopping_reminder/view_models/view_models.dart";
 import "package:shopping_reminder/views/views.dart";
 import "package:shopping_reminder/widgets/widgets.dart";
+
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -18,17 +18,12 @@ class MainScreenView extends StatefulWidget {
 }
 
 class _MainScreenViewState extends State<MainScreenView> {
-  // ignore: prefer_final_fields
   bool _isLoading = true;
-  late MainScreenViewModel _viewModel;
-  late ChangeLanguageStore _store;
 
   @override
   void initState() {
     super.initState();
     _loadingScreen();
-    _viewModel = MainScreenViewModel();
-    _store = Provider.of<ChangeLanguageStore>(context, listen: false);
   }
 
   @override
@@ -40,19 +35,53 @@ class _MainScreenViewState extends State<MainScreenView> {
               iconScale: 10,
               iconDirectory: MAIN_SCREEN_LOADING_ICON_DIR,
             ))
-          : _getMainContent(),
+          : const _GetMainContent(),
     );
   }
 
-  Widget _getMainContent() {
+  Future _loadingScreen() async {
+    Future.wait([
+      initializeDateFormatting(LocaleFormats.getLocale()),
+      Future.delayed(const Duration(seconds: 5))
+    ]).then((_) {
+      if (mounted) {
+        setState(() {
+          _isLoading = !_isLoading;
+        });
+      }
+    });
+  }
+}
+
+class _GetMainContent extends StatefulWidget {
+  const _GetMainContent();
+
+  @override
+  State<_GetMainContent> createState() => __GetMainContentState();
+}
+
+class __GetMainContentState extends State<_GetMainContent> {
+
+
+  late MainScreenStore _store;
+
+  @override
+  void initState() {
+    super.initState();
+    _store = Provider.of<MainScreenStore>(context, listen: false);
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Container(
         padding: const EdgeInsets.only(top: 170.0),
         child: Column(
           children: <Widget>[
             Image.asset(
-              _viewModel.iconsDirectory[
-                  _viewModel.pickRandomIcon(_viewModel.iconsDirectory.length)],
+              _store.iconsDirectory[
+                  _store.pickRandomIcon(_store.iconsDirectory.length)],
               scale: 2,
             ),
             const SizedBox(
@@ -110,18 +139,5 @@ class _MainScreenViewState extends State<MainScreenView> {
         ),
       ),
     );
-  }
-
-  Future _loadingScreen() async {
-    Future.wait([
-      initializeDateFormatting(LocaleFormats.getLocale()),
-      Future.delayed(const Duration(seconds: 5))
-    ]).then((_) {
-      if (mounted) {
-        setState(() {
-          _isLoading = !_isLoading;
-        });
-      }
-    });
   }
 }

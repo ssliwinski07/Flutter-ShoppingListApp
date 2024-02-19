@@ -29,7 +29,7 @@ abstract class ShoppingItemsStoreBase with Store {
   }
 
   @action
-  Future<void> getCheckedItems() async {
+  void getCheckedItems() {
     int count = 0;
     var list = Hive.box<ShoppingItemModel>('shoppingItems').values.toList();
     for (ShoppingItemModel item in list) {
@@ -45,7 +45,7 @@ abstract class ShoppingItemsStoreBase with Store {
     item.name = text;
     if (item.isChecked == true) {
       item.isChecked = false;
-      await getCheckedItems();
+     getCheckedItems();
     }
 
     await shoppingItemsBox?.put(item.key, item);
@@ -65,28 +65,28 @@ abstract class ShoppingItemsStoreBase with Store {
   @action
   Future<void> removeFromList(ShoppingItemModel item) async {
     await shoppingItemsBox?.delete(item.key);
-    await getCheckedItems();
+    getCheckedItems();
     getAllItems();
   }
 
   @action
   Future<void> itemCheck(ShoppingItemModel item) async {
     item.isChecked = true;
-    shoppingItemsBox?.put(item.key, item);
-    await getCheckedItems();
+    await shoppingItemsBox?.put(item.key, item);
+    getCheckedItems();
   }
 
   @action
   Future<void> unCheckItem(ShoppingItemModel item) async {
     item.isChecked = false;
-    shoppingItemsBox?.put(item.key, item);
-    await getCheckedItems();
+    await shoppingItemsBox?.put(item.key, item);
+    getCheckedItems();
   }
 
   @action
   Future<void> deleteAllItems() async {
     await shoppingItemsBox?.clear();
-    await getCheckedItems();
+    getCheckedItems();
     getAllItems();
   }
 

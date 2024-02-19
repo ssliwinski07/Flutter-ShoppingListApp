@@ -24,7 +24,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
   void initState() {
     super.initState();
     _store = Provider.of<ShoppingItemsStore>(context, listen: false);
-    _loading();
+    _loading(simulateLoading: false);
   }
 
   @override
@@ -32,10 +32,11 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
     return !_isLoading
         ? const Scaffold(
             body: Center(
-            child: CircularProgressIndicator(
-              color: Colors.black,
+              child: CircularProgressIndicator(
+                color: Colors.black,
+              ),
             ),
-          ))
+          )
         : Scaffold(
             backgroundColor: AppColors.white,
             body: NestedScrollView(
@@ -78,13 +79,29 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
           );
   }
 
-  Future<void> _loading() async {
-    Future.wait([_store.initHive()]).then((_) {
-      setState(() {
-        _isLoading = !_isLoading;
-      });
-      _store.getAllItems();
-      _store.getCheckedItems();
-    });
+  Future<void> _loading({bool? simulateLoading}) {
+    if (simulateLoading == true) {
+      return Future.delayed(
+        const Duration(seconds: 2),
+        () => Future.wait([_store.initHive()]).then(
+          (_) {
+            setState(() {
+              _isLoading = !_isLoading;
+            });
+            _store.getAllItems();
+            _store.getCheckedItems();
+          },
+        ),
+      );
+    }
+    return Future.wait([_store.initHive()]).then(
+      (_) {
+        setState(() {
+          _isLoading = !_isLoading;
+        });
+        _store.getAllItems();
+        _store.getCheckedItems();
+      },
+    );
   }
 }

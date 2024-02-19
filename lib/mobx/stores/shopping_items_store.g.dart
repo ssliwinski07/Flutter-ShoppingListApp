@@ -57,14 +57,6 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
     });
   }
 
-  late final _$getCheckedItemsAsyncAction =
-      AsyncAction('ShoppingItemsStoreBase.getCheckedItems', context: context);
-
-  @override
-  Future<void> getCheckedItems() {
-    return _$getCheckedItemsAsyncAction.run(() => super.getCheckedItems());
-  }
-
   late final _$updateItemAsyncAction =
       AsyncAction('ShoppingItemsStoreBase.updateItem', context: context);
 
@@ -122,6 +114,17 @@ mixin _$ShoppingItemsStore on ShoppingItemsStoreBase, Store {
         name: 'ShoppingItemsStoreBase.getAllItems');
     try {
       return super.getAllItems();
+    } finally {
+      _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getCheckedItems() {
+    final _$actionInfo = _$ShoppingItemsStoreBaseActionController.startAction(
+        name: 'ShoppingItemsStoreBase.getCheckedItems');
+    try {
+      return super.getCheckedItems();
     } finally {
       _$ShoppingItemsStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -3,7 +3,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_reminder/mobx/stores/change_language_store.dart';
 
 import 'core/core.dart';
 import "mobx/stores.dart";
@@ -19,7 +18,7 @@ void main() async {
   await hiveRepository.hiveInitialization();
   runApp(
     Provider(
-      create: (context) => ChangeLanguageStore(),
+      create: (context) => MainScreenStore(),
       child: const MyApp(),
     ),
   );
@@ -30,8 +29,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ChangeLanguageStore changeLanguageStore =
-        Provider.of<ChangeLanguageStore>(context, listen: false);
+    MainScreenStore changeLanguageStore =
+        Provider.of<MainScreenStore>(context, listen: false);
     return MultiProvider(
       providers: [
         Provider<ShoppingItemsStore>(create: (context) => ShoppingItemsStore()),
