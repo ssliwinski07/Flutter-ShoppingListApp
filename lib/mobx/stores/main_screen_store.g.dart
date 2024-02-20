@@ -25,42 +25,15 @@ mixin _$MainScreenStore on MainScreenStoreBase, Store {
     });
   }
 
-  late final _$localeAtom =
-      Atom(name: 'MainScreenStoreBase.locale', context: context);
-
-  @override
-  Locale? get locale {
-    _$localeAtom.reportRead();
-    return super.locale;
-  }
-
-  @override
-  set locale(Locale? value) {
-    _$localeAtom.reportWrite(value, super.locale, () {
-      super.locale = value;
-    });
-  }
-
   late final _$MainScreenStoreBaseActionController =
       ActionController(name: 'MainScreenStoreBase', context: context);
 
   @override
-  Locale setLocale() {
+  int randomFigure(int range) {
     final _$actionInfo = _$MainScreenStoreBaseActionController.startAction(
-        name: 'MainScreenStoreBase.setLocale');
+        name: 'MainScreenStoreBase.randomFigure');
     try {
-      return super.setLocale();
-    } finally {
-      _$MainScreenStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  int pickRandomIcon(int range) {
-    final _$actionInfo = _$MainScreenStoreBaseActionController.startAction(
-        name: 'MainScreenStoreBase.pickRandomIcon');
-    try {
-      return super.pickRandomIcon(range);
+      return super.randomFigure(range);
     } finally {
       _$MainScreenStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -69,8 +42,7 @@ mixin _$MainScreenStore on MainScreenStoreBase, Store {
   @override
   String toString() {
     return '''
-iconsDirectory: ${iconsDirectory},
-locale: ${locale}
+iconsDirectory: ${iconsDirectory}
     ''';
   }
 }

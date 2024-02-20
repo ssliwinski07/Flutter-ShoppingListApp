@@ -10,6 +10,7 @@ import "mobx/stores.dart";
 import "views/views.dart";
 
 void main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
 
   ServiceLocator serviceLocator = ServiceLocator();
@@ -24,11 +25,14 @@ void main() async {
 
   await initialization();
 
+  SettingsService settingsService = GetIt.instance<SettingsService>();
+
   runApp(
     MultiProvider(
       providers: [
         Provider<ShoppingItemsStore>(create: (context) => ShoppingItemsStore()),
-        Provider<MainScreenStore>(create: (context) => MainScreenStore())
+        Provider<MainScreenStore>(create: (context) => MainScreenStore()),
+        Provider<SettingsStore>(create: (context) =>  SettingsStore(settingsService: settingsService))
       ],
       child: const MyApp(),
     ),
@@ -40,8 +44,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainScreenStore mainScreenStore =
-        Provider.of<MainScreenStore>(context, listen: false);
+    SettingsStore settingsStore = Provider.of<SettingsStore>(context, listen: false);
 
     return Sizer(
       builder: (context, orientation, deviceType) => Observer(
@@ -50,9 +53,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: mainScreenStore.locale,
+          locale: settingsStore.locale,
         ),
       ),
     );
   }
+
 }

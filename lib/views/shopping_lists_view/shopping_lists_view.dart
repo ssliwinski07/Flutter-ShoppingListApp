@@ -8,7 +8,6 @@ import 'package:shopping_reminder/res/res.dart';
 import 'package:shopping_reminder/widgets/widgets.dart';
 import 'package:shopping_reminder/extensions/extensions.dart';
 
-
 class ShoppingListsView extends StatefulWidget {
   const ShoppingListsView({super.key});
 
@@ -21,13 +20,14 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
 
   bool _isLoading = false;
   late ShoppingItemsStore _shoppingItemStore;
-  late MainScreenStore _mainScreenStore;
+  late SettingsStore _settingsStore;
 
   @override
   void initState() {
     super.initState();
-    _shoppingItemStore = Provider.of<ShoppingItemsStore>(context, listen: false);
-    _mainScreenStore = Provider.of<MainScreenStore>(context, listen: false);
+    _shoppingItemStore =
+        Provider.of<ShoppingItemsStore>(context, listen: false);
+    _settingsStore = Provider.of<SettingsStore>(context, listen: false);
     _loading(simulateLoading: false);
   }
 
@@ -68,7 +68,10 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                       ),
                       const SizedBox(width: 40),
                       Text(
-                        '${LocaleFormats.formatDateTime(_today, languageCode: _mainScreenStore.locale?.languageCode)}',
+                        '${LocaleFormats.formatDateTime(
+                          _today,
+                          languageCode: _settingsStore.locale?.languageCode,
+                        )}',
                       ),
                     ],
                   ),

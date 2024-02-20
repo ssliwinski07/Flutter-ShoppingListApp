@@ -34,7 +34,7 @@ dependencies:
   intl_utils: ^2.8.2
   mobx: ^2.2.0
   flutter_mobx: ^2.0.6+5
-  shared_preferences: ^2.1.1
+  shared_preferences: ^2.2.2
   get_it: ^7.6.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0

@@ -57,23 +57,26 @@ class _GetMainContent extends StatefulWidget {
   const _GetMainContent();
 
   @override
-  State<_GetMainContent> createState() => __GetMainContentState();
+  State<_GetMainContent> createState() => _GetMainContentState();
 }
 
-class __GetMainContentState extends State<_GetMainContent> {
+class _GetMainContentState extends State<_GetMainContent> {
 
 
-  late MainScreenStore _store;
+  late SettingsStore _settingsStore;
+  late MainScreenStore _mainScreenStore;
 
   @override
   void initState() {
     super.initState();
-    _store = Provider.of<MainScreenStore>(context, listen: false);
+    _settingsStore = Provider.of<SettingsStore>(context, listen: false);
+    _mainScreenStore = Provider.of<MainScreenStore>(context, listen: false);
   }
 
 
   @override
   Widget build(BuildContext context) {
+    int range = _mainScreenStore.iconsDirectory.length;
     return Center(
         child: Container(
           height: 100.h,
@@ -81,8 +84,8 @@ class __GetMainContentState extends State<_GetMainContent> {
           child: Column(
             children: <Widget>[
               Image.asset(
-                _store.iconsDirectory[
-                    _store.pickRandomIcon(_store.iconsDirectory.length)],
+                _mainScreenStore.iconsDirectory[
+                    _mainScreenStore.randomFigure(range)],
                 scale: 2,
               ),
                SizedBox(
@@ -129,7 +132,7 @@ class __GetMainContentState extends State<_GetMainContent> {
                 height: 50,
                 width: 250,
                 onTap: () {
-                  _store.setLocale();
+                  _settingsStore.setLocale();
                 },
                 buttonTitle: Text(
                   context.translate.changeLanguage,
