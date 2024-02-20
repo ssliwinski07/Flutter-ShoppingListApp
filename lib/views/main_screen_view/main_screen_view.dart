@@ -77,7 +77,7 @@ class __GetMainContentState extends State<_GetMainContent> {
     return Center(
         child: Container(
           height: 100.h,
-          padding:  EdgeInsets.only(top: 5.h),
+          padding:  EdgeInsets.only(top: 8.h),
           child: Column(
             children: <Widget>[
               Image.asset(
@@ -97,7 +97,7 @@ class __GetMainContentState extends State<_GetMainContent> {
                 ),
               ),
                 SizedBox(
-                height: 5.h,
+                height: 20.h,
               ),
               SRButton(
                 color: AppColors.green,

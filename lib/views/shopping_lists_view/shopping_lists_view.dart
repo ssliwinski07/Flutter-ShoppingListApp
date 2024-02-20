@@ -20,12 +20,14 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
   final DateTime _today = DateTime.now();
 
   bool _isLoading = false;
-  late ShoppingItemsStore _store;
+  late ShoppingItemsStore _shoppingItemStore;
+  late MainScreenStore _mainScreenStore;
 
   @override
   void initState() {
     super.initState();
-    _store = Provider.of<ShoppingItemsStore>(context, listen: false);
+    _shoppingItemStore = Provider.of<ShoppingItemsStore>(context, listen: false);
+    _mainScreenStore = Provider.of<MainScreenStore>(context, listen: false);
     _loading(simulateLoading: false);
   }
 
@@ -57,16 +59,16 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
                       Text(context.translate.shoppingLists),
                       Observer(
                         builder: (_) {
-                          return (_store.shoppingItems == null ||
-                                  _store.shoppingItems!.isEmpty)
+                          return (_shoppingItemStore.shoppingItems == null ||
+                                  _shoppingItemStore.shoppingItems!.isEmpty)
                               ? const SizedBox()
                               : Text(
-                                  '${_store.countCheckedItems}/${_store.countAllItems}');
+                                  '${_shoppingItemStore.countCheckedItems}/${_shoppingItemStore.countAllItems}');
                         },
                       ),
                       const SizedBox(width: 40),
                       Text(
-                        '${LocaleFormats.formatDateTime(_today)}',
+                        '${LocaleFormats.formatDateTime(_today, languageCode: _mainScreenStore.locale?.languageCode)}',
                       ),
                     ],
                   ),
@@ -85,24 +87,24 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
     if (simulateLoading == true) {
       return Future.delayed(
         const Duration(seconds: 2),
-        () => Future.wait([_store.initHive()]).then(
+        () => Future.wait([_shoppingItemStore.initHive()]).then(
           (_) {
             setState(() {
               _isLoading = !_isLoading;
             });
-            _store.getAllItems();
-            _store.getCheckedItems();
+            _shoppingItemStore.getAllItems();
+            _shoppingItemStore.getCheckedItems();
           },
         ),
       );
     }
-    return Future.wait([_store.initHive()]).then(
+    return Future.wait([_shoppingItemStore.initHive()]).then(
       (_) {
         setState(() {
           _isLoading = !_isLoading;
         });
-        _store.getAllItems();
-        _store.getCheckedItems();
+        _shoppingItemStore.getAllItems();
+        _shoppingItemStore.getCheckedItems();
       },
     );
   }

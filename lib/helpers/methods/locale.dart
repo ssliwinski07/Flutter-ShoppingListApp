@@ -1,11 +1,12 @@
 import 'package:intl/intl.dart';
 import 'dart:io';
 
+
 class LocaleFormats {
-  static formatDateTime(DateTime date, {ignoreTime = true}) {
-    var defaultLocale = getLocale();
-    var dateFormatWithHours = DateFormat.MMMEd(defaultLocale).add_jm();
-    var dateFormatWithoutHours = DateFormat.MMMEd(defaultLocale);
+  static formatDateTime(DateTime date, {bool ignoreTime = true, String? languageCode}) {
+
+    var dateFormatWithHours = DateFormat.MMMEd(languageCode).add_jm();
+    var dateFormatWithoutHours = DateFormat.MMMEd(languageCode);
 
     String dateString;
 
@@ -22,4 +23,5 @@ class LocaleFormats {
 
     return defaultLocale;
   }
+
 }

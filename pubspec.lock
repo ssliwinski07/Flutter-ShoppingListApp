@@ -373,6 +373,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  language_code:
+    dependency: "direct main"
+    description:
+      name: language_code
+      sha256: ca1e026cc5d4ceeeb03beb73c6fc695ff091e00cec76e089394a365917a37909
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   leak_tracker:
     dependency: transitive
     description:

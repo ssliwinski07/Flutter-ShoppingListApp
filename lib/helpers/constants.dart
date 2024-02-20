@@ -16,3 +16,7 @@ const FORMAT_WITHOUT_HOURS = 'yyyy-MM-dd';
 
 //INT
 const ADDING_ITEM_DURATION = 1000;
+
+//LANGUAGES
+const plLanguage = 'pl';
+const enLanguage = 'en';
