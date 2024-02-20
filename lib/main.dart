@@ -43,9 +43,9 @@ class MyApp extends StatelessWidget {
     MainScreenStore mainScreenStore =
         Provider.of<MainScreenStore>(context, listen: false);
 
-    return Observer(
-      builder: (context) => Sizer(
-        builder: (context, orientation, deviceType) => MaterialApp(
+    return Sizer(
+      builder: (context, orientation, deviceType) => Observer(
+        builder: (context) => MaterialApp(
           home: const MainScreenView(),
           debugShowCheckedModeBanner: false,
           localizationsDelegates: AppLocalizations.localizationsDelegates,

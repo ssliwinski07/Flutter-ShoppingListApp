@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import "package:provider/provider.dart";
+import "package:sizer/sizer.dart";
 
 import "package:shopping_reminder/extensions/extensions.dart";
 import "package:shopping_reminder/helpers/helpers.dart";
@@ -8,7 +9,6 @@ import "package:shopping_reminder/mobx/stores.dart";
 import "package:shopping_reminder/res/res.dart";
 import "package:shopping_reminder/views/views.dart";
 import "package:shopping_reminder/widgets/widgets.dart";
-
 
 class MainScreenView extends StatefulWidget {
   const MainScreenView({super.key});
@@ -75,69 +75,71 @@ class __GetMainContentState extends State<_GetMainContent> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        padding: const EdgeInsets.only(top: 170.0),
-        child: Column(
-          children: <Widget>[
-            Image.asset(
-              _store.iconsDirectory[
-                  _store.pickRandomIcon(_store.iconsDirectory.length)],
-              scale: 2,
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            Text(
-              textAlign: TextAlign.center,
-              context.translate.welcomeText,
-              style: const TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
+        child: Container(
+          height: 100.h,
+          padding:  EdgeInsets.only(top: 5.h),
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                _store.iconsDirectory[
+                    _store.pickRandomIcon(_store.iconsDirectory.length)],
+                scale: 2,
               ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            SRButton(
-              color: AppColors.green,
-              borderRadius: BorderRadius.circular(40),
-              height: 50,
-              width: 250,
-              onTap: () async {
-                bool result = await Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => const ShoppingListsView(),
-                  ),
-                );
-                if (result == true) {
-                  setState(() {});
-                }
-              },
-              buttonTitle: Text(
-                context.translate.begin,
-                style: const TextStyle(color: AppColors.white, fontSize: 20),
+               SizedBox(
+                height: 5.h,
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SRButton(
-              color: AppColors.green,
-              borderRadius: BorderRadius.circular(40),
-              height: 50,
-              width: 250,
-              onTap: () {
-                _store.setLocale();
-              },
-              buttonTitle: Text(
-                context.translate.changeLanguage,
-                style: const TextStyle(color: AppColors.white, fontSize: 20),
+              Text(
+                textAlign: TextAlign.center,
+                context.translate.welcomeText,
+                style:  TextStyle(
+                  fontSize: 40.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-          ],
+                SizedBox(
+                height: 5.h,
+              ),
+              SRButton(
+                color: AppColors.green,
+                borderRadius: BorderRadius.circular(40),
+                height: 50,
+                width: 250,
+                onTap: () async {
+                  bool result = await Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (_, __, ___) => const ShoppingListsView(),
+                    ),
+                  );
+                  if (result == true) {
+                    setState(() {});
+                  }
+                },
+                buttonTitle: Text(
+                  context.translate.begin,
+                  style: const TextStyle(color: AppColors.white, fontSize: 20),
+                ),
+              ),
+               SizedBox(
+                height: 2.h,
+              ),
+              SRButton(
+                color: AppColors.green,
+                borderRadius: BorderRadius.circular(40),
+                height: 50,
+                width: 250,
+                onTap: () {
+                  _store.setLocale();
+                },
+                buttonTitle: Text(
+                  context.translate.changeLanguage,
+                  style: const TextStyle(color: AppColors.white, fontSize: 20),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+      
     );
   }
 }
