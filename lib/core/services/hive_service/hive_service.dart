@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:shopping_reminder/models/shopping_item_model.dart';
+
+import 'package:shopping_reminder/models/models.dart';
 
 class HiveService {
   Future<void> hiveInitialization() async {

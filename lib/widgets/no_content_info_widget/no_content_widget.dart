@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_reminder/extensions/translations.dart';
-import 'package:shopping_reminder/helpers/constants.dart';
 
-import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
+import 'package:shopping_reminder/extensions/extensions.dart';
+import 'package:shopping_reminder/helpers/helpers.dart';
+import 'package:shopping_reminder/res/res.dart';
+import 'package:shopping_reminder/widgets/widgets.dart';
 
 class NoContentInfoWidget extends StatelessWidget {
   const NoContentInfoWidget({

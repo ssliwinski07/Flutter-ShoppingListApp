@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 import 'core/core.dart';
 import "mobx/stores.dart";
@@ -12,13 +13,23 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   ServiceLocator serviceLocator = ServiceLocator();
-  await serviceLocator.serviceLocatorInit();
 
-  HiveService hiveRepository = GetIt.instance<HiveService>();
-  await hiveRepository.hiveInitialization();
+  Future<void> initialization() async {
+    await serviceLocator.serviceLocatorInit();
+    await serviceLocator.uiServiceLocatorInit();
+
+    HiveService hiveRepository = GetIt.instance<HiveService>();
+    await hiveRepository.hiveInitialization();
+  }
+
+  await initialization();
+
   runApp(
-    Provider(
-      create: (context) => MainScreenStore(),
+    MultiProvider(
+      providers: [
+        Provider<ShoppingItemsStore>(create: (context) => ShoppingItemsStore()),
+        Provider<MainScreenStore>(create: (context) => MainScreenStore())
+      ],
       child: const MyApp(),
     ),
   );
@@ -29,19 +40,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MainScreenStore changeLanguageStore =
+    MainScreenStore mainScreenStore =
         Provider.of<MainScreenStore>(context, listen: false);
-    return MultiProvider(
-      providers: [
-        Provider<ShoppingItemsStore>(create: (context) => ShoppingItemsStore()),
-      ],
-      child: Observer(
-        builder: (context) => MaterialApp(
+
+    return Observer(
+      builder: (context) => Sizer(
+        builder: (context, orientation, deviceType) => MaterialApp(
           home: const MainScreenView(),
           debugShowCheckedModeBanner: false,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: changeLanguageStore.locale,
+          locale: mainScreenStore.locale,
         ),
       ),
     );

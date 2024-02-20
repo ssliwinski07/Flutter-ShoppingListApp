@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_reminder/extensions/translations.dart';
-import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
-import 'package:shopping_reminder/helpers/constants.dart';
-import 'package:shopping_reminder/helpers/enums.dart';
-import 'package:shopping_reminder/models/shopping_item_model.dart';
-import 'package:shopping_reminder/res/colors/app_colors.dart';
 import 'package:get_it/get_it.dart';
+
+import 'package:shopping_reminder/extensions/extensions.dart';
+import 'package:shopping_reminder/core/services/services.dart';
+import 'package:shopping_reminder/helpers/helpers.dart';
+import 'package:shopping_reminder/models/models.dart';
+import 'package:shopping_reminder/res/res.dart';
 
 class ItemsManipulationWidget extends StatefulWidget {
   const ItemsManipulationWidget({

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_reminder/core/services/message_info_service/message_service_info.dart';
-import 'package:shopping_reminder/helpers/enums.dart';
-import 'package:shopping_reminder/res/colors/app_colors.dart';
+
+import 'package:shopping_reminder/core/core.dart';
+import 'package:shopping_reminder/helpers/helpers.dart';
+import 'package:shopping_reminder/res/res.dart';
 
 class MessageInfoServiceUI implements MessageInfoService {
   @override

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:hive/hive.dart';
-import 'package:shopping_reminder/models/shopping_item_model.dart';
+
+import 'package:shopping_reminder/models/models.dart';
 
 part 'shopping_items_store.g.dart';
 

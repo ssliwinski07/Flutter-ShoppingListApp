@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-
-import 'package:shopping_reminder/helpers/enums.dart';
-import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
-import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/widgets/items_manipulation_widget/items_manipulation_widget.dart';
-import 'package:shopping_reminder/widgets/alert_info_widget/info_alert_widget.dart';
-import 'package:shopping_reminder/widgets/buttons/action_buttons/sr_button.dart';
-import 'package:shopping_reminder/widgets/no_content_info_widget/no_content_widget.dart';
-import 'package:shopping_reminder/widgets/shopping_list/shopping_list_item.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:provider/provider.dart';
+
+import 'package:shopping_reminder/helpers/helpers.dart';
+import 'package:shopping_reminder/mobx/stores.dart';
+import 'package:shopping_reminder/res/res.dart';
+import 'package:shopping_reminder/widgets/widgets.dart';
+import 'package:shopping_reminder/extensions/extensions.dart';
+
 
 class ShoppingList extends StatelessWidget {
   const ShoppingList({super.key});

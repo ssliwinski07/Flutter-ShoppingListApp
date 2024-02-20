@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:shopping_reminder/helpers/methods/locale.dart';
-import 'package:shopping_reminder/mobx/stores/shopping_items_store.dart';
-import 'package:shopping_reminder/res/colors/app_colors.dart';
-import 'package:shopping_reminder/widgets/shopping_list/shopping_list.dart';
-import 'package:shopping_reminder/extensions/translations.dart';
 import 'package:provider/provider.dart';
+
+import 'package:shopping_reminder/helpers/helpers.dart';
+import 'package:shopping_reminder/mobx/stores.dart';
+import 'package:shopping_reminder/res/res.dart';
+import 'package:shopping_reminder/widgets/widgets.dart';
+import 'package:shopping_reminder/extensions/extensions.dart';
+
 
 class ShoppingListsView extends StatefulWidget {
   const ShoppingListsView({super.key});
