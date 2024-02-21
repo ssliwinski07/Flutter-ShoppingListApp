@@ -20,3 +20,6 @@ const ADDING_ITEM_DURATION = 1000;
 //LANGUAGES
 const plLanguage = 'pl';
 const enLanguage = 'en';
+
+//SHAREDPREFERENCES KEY
+const languageKey = 'languageKey';

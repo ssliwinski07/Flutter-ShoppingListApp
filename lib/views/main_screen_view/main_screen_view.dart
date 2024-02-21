@@ -100,7 +100,7 @@ class _GetMainContentState extends State<_GetMainContent> {
                 ),
               ),
                 SizedBox(
-                height: 20.h,
+                height: 4.h,
               ),
               SRButton(
                 color: AppColors.green,

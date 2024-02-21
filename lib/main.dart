@@ -40,11 +40,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     SettingsStore settingsStore = Provider.of<SettingsStore>(context, listen: false);
+    
+    settingsStore.initializeLocale();
 
     return Sizer(
       builder: (context, orientation, deviceType) => Observer(
