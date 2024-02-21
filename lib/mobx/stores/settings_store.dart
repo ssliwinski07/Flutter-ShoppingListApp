@@ -12,33 +12,26 @@ abstract class SettingsStoreBase with Store {
   SettingsStoreBase({
     required this.settingsService,
   });
-  
+
   final SettingsService settingsService;
 
   @observable
   Locale? locale;
 
   @action
-  Future<Locale> setLocale() async {
-    
+  void setLocale() {
     if (locale == const Locale(plLanguage)) {
       settingsService.setString(key: languageKey, value: enLanguage);
-      String langugageCode = await settingsService.getString(key: languageKey);
-      locale =  Locale(langugageCode);
+      locale = const Locale(enLanguage);
     } else if (locale == const Locale(enLanguage)) {
       settingsService.setString(key: languageKey, value: plLanguage);
-      String languageCode =  await settingsService.getString(key: languageKey);
-      locale = Locale(languageCode);
-    
+      locale = const Locale(plLanguage);
     }
-    return locale!;
   }
 
   @action
-  initializeLocale() async {
+  Future<void> initializeLocale() async {
     String languageCode = await settingsService.getString(key: languageKey);
     locale = Locale(languageCode);
-    return locale;
   }
-
 }

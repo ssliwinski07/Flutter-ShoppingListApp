@@ -40,52 +40,49 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          color: Colors.red,
-          child: AnimatedContainer(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            duration: const Duration(milliseconds: 400),
-            child: Padding(
-              padding: const EdgeInsets.only(right: 80),
-              child: ListTile(
-                leading: _isTappedForDeletion
-                    ? _getDeleteIcon(context: context, store: _store)
-                    : _getCheckIcon(
-                        context: context,
-                        store: _store,
-                      ),
-                title: GestureDetector(
-                  onLongPress: _isTappedForDeletion
-                      ? null
-                      : () {
-                          _showUpdateItemDialog(
-                            shouldHideDialog: true,
-                            context: context,
-                            store: _store,
-                          );
-                        },
-                  onTap: () {
-                    setState(() {});
-                    _isTappedForDeletion = !_isTappedForDeletion;
-                  },
-                  child: Text(
-                    widget.shoppingItem!.name,
-                    maxLines: 100,
-                    style: TextStyle(
-                      color: _isItemChecked ? Colors.grey : Colors.black,
-                      decoration:
-                          _isItemChecked ? TextDecoration.lineThrough : null,
-                    ),
-                  ),
-                ),
+    return Padding(
+      padding: const EdgeInsets.only(right: 80),
+      child: ListTile(
+        leading: _isTappedForDeletion
+            ? _GetDeleteIcon(
+                isTappedForDeletion: _isTappedForDeletion,
+                shoppingItemStore: _store,
+                item: _item,
+                messageInfoService: _messageService,
+                onTapCallback: (isTappedForDeletion) {
+                  _isTappedForDeletion = isTappedForDeletion;
+                },
+              )
+            : _GetCheckIcon(
+                isItemChecked: _isItemChecked,
+                shoppingItemsStore: _store,
+                messageInfoService: _messageService,
+                item: _item,
               ),
+        title: GestureDetector(
+          onLongPress: _isTappedForDeletion
+              ? null
+              : () {
+                  _showUpdateItemDialog(
+                    shouldHideDialog: true,
+                    context: context,
+                    store: _store,
+                  );
+                },
+          onTap: () {
+            setState(() {});
+            _isTappedForDeletion = !_isTappedForDeletion;
+          },
+          child: Text(
+            widget.shoppingItem!.name,
+            maxLines: 100,
+            style: TextStyle(
+              color: _isItemChecked ? Colors.grey : Colors.black,
+              decoration: _isItemChecked ? TextDecoration.lineThrough : null,
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 
@@ -105,44 +102,30 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
       ),
     );
   }
+}
 
-  _getDeleteIcon({
-    required ShoppingItemsStore store,
-    required BuildContext context,
-  }) {
+class _GetCheckIcon extends StatelessWidget {
+  const _GetCheckIcon({
+    required this.isItemChecked,
+    required this.shoppingItemsStore,
+    required this.messageInfoService,
+    required this.item,
+  });
+
+  final bool? isItemChecked;
+  final ShoppingItemsStore? shoppingItemsStore;
+  final MessageInfoService? messageInfoService;
+  final ShoppingItemModel? item;
+
+  @override
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        try {
-          store.removeFromList(_item);
-          _isTappedForDeletion = !_isTappedForDeletion;
-          _messageService.showMessage(
-              context: context,
-              infoType: InfoTypes.info,
-              infoMessage: context.translate.itemDeleted);
-        } catch (e) {
-          _messageService.showMessage(
-            context: context,
-            infoMessage: context.translate.errorMessage,
-            infoType: InfoTypes.alert,
-          );
-        }
-      },
-      child: const Icon(
-        Icons.remove,
-        color: Colors.red,
-      ),
-    );
-  }
-
-  _getCheckIcon(
-      {required BuildContext context, required ShoppingItemsStore store}) {
-    return GestureDetector(
-      onTap: () {
-        if (_isItemChecked == false) {
+        if (isItemChecked == false) {
           try {
-            store.itemCheck(_item);
+            shoppingItemsStore?.itemCheck(item!);
           } catch (e) {
-            _messageService.showMessage(
+            messageInfoService?.showMessage(
               infoMessage: context.translate.errorMessage,
               infoType: InfoTypes.alert,
               context: context,
@@ -150,9 +133,9 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
           }
         } else {
           try {
-            store.unCheckItem(_item);
+            shoppingItemsStore?.unCheckItem(item!);
           } catch (e) {
-            _messageService.showMessage(
+            messageInfoService?.showMessage(
                 infoMessage: context.translate.errorMessage,
                 infoType: InfoTypes.alert);
           }
@@ -163,18 +146,64 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
         height: 25,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: _isItemChecked ? AppColors.green : null,
+          color: isItemChecked! ? AppColors.green : null,
           border: Border.all(
             width: 1,
             color: AppColors.green,
           ),
         ),
-        child: _isItemChecked
+        child: isItemChecked!
             ? const Icon(
                 Icons.check,
                 color: Colors.white,
               )
             : const SizedBox(),
+      ),
+    );
+  }
+}
+
+class _GetDeleteIcon extends StatelessWidget {
+  const _GetDeleteIcon({
+    required this.shoppingItemStore,
+    required this.messageInfoService,
+    required this.isTappedForDeletion,
+    required this.item,
+    required this.onTapCallback,
+  });
+
+  final ShoppingItemsStore? shoppingItemStore;
+  final MessageInfoService? messageInfoService;
+  final bool? isTappedForDeletion;
+  final ShoppingItemModel? item;
+  final OnTapCallback? onTapCallback;
+
+  @override
+  Widget build(BuildContext context) {
+    bool isTapped = isTappedForDeletion!;
+    return GestureDetector(
+      onTap: () {
+        try {
+          shoppingItemStore!.removeFromList(item!);
+          isTapped = !isTapped;
+          if (onTapCallback != null) {
+            onTapCallback!(isTapped);
+          }
+          messageInfoService?.showMessage(
+              context: context,
+              infoType: InfoTypes.info,
+              infoMessage: context.translate.itemDeleted);
+        } catch (e) {
+          messageInfoService?.showMessage(
+            context: context,
+            infoMessage: context.translate.errorMessage,
+            infoType: InfoTypes.alert,
+          );
+        }
+      },
+      child: const Icon(
+        Icons.remove,
+        color: Colors.red,
       ),
     );
   }
