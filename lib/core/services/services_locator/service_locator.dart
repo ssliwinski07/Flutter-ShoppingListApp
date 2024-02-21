@@ -10,7 +10,7 @@ class ServiceLocator {
   //Core Service locators
   Future<void> serviceLocatorInit() async {
     serviceLocator.registerSingleton<HiveService>(HiveService());
-    serviceLocator.registerSingleton<SettingsService>(SettingsService());
+    serviceLocator.registerSingleton<SettingsService>(SettingsServiceImpl());
   }
 
   //Core UI Service locators

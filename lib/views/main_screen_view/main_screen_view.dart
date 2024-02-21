@@ -61,8 +61,6 @@ class _GetMainContent extends StatefulWidget {
 }
 
 class _GetMainContentState extends State<_GetMainContent> {
-
-
   late SettingsStore _settingsStore;
   late MainScreenStore _mainScreenStore;
 
@@ -73,76 +71,74 @@ class _GetMainContentState extends State<_GetMainContent> {
     _mainScreenStore = Provider.of<MainScreenStore>(context, listen: false);
   }
 
-
   @override
   Widget build(BuildContext context) {
     int range = _mainScreenStore.iconsDirectory.length;
     return Center(
-        child: Container(
-          height: 100.h,
-          padding:  EdgeInsets.only(top: 8.h),
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                _mainScreenStore.iconsDirectory[
-                    _mainScreenStore.randomFigure(range)],
-                scale: 2,
+      child: Container(
+        height: 100.h,
+        padding: EdgeInsets.only(top: 8.h),
+        child: Column(
+          children: <Widget>[
+            Image.asset(
+              _mainScreenStore
+                  .iconsDirectory[_mainScreenStore.randomFigure(range)],
+              scale: 2,
+            ),
+            SizedBox(
+              height: 5.h,
+            ),
+            Text(
+              textAlign: TextAlign.center,
+              context.translate.welcomeText,
+              style: TextStyle(
+                fontSize: 40.sp,
+                fontWeight: FontWeight.bold,
               ),
-               SizedBox(
-                height: 5.h,
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            SRButton(
+              color: AppColors.green,
+              borderRadius: BorderRadius.circular(40),
+              height: 50,
+              width: 250,
+              onTap: () async {
+                bool result = await Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => const ShoppingListsView(),
+                  ),
+                );
+                if (result == true) {
+                  setState(() {});
+                }
+              },
+              buttonTitle: Text(
+                context.translate.begin,
+                style: const TextStyle(color: AppColors.white, fontSize: 20),
               ),
-              Text(
-                textAlign: TextAlign.center,
-                context.translate.welcomeText,
-                style:  TextStyle(
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            SizedBox(
+              height: 2.h,
+            ),
+            SRButton(
+              color: AppColors.green,
+              borderRadius: BorderRadius.circular(40),
+              height: 50,
+              width: 250,
+              onTap: () {
+                _settingsStore.setLocale();
+              },
+              buttonTitle: Text(
+                context.translate.changeLanguage,
+                style: const TextStyle(color: AppColors.white, fontSize: 20),
               ),
-                SizedBox(
-                height: 4.h,
-              ),
-              SRButton(
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(40),
-                height: 50,
-                width: 250,
-                onTap: () async {
-                  bool result = await Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (_, __, ___) => const ShoppingListsView(),
-                    ),
-                  );
-                  if (result == true) {
-                    setState(() {});
-                  }
-                },
-                buttonTitle: Text(
-                  context.translate.begin,
-                  style: const TextStyle(color: AppColors.white, fontSize: 20),
-                ),
-              ),
-               SizedBox(
-                height: 2.h,
-              ),
-              SRButton(
-                color: AppColors.green,
-                borderRadius: BorderRadius.circular(40),
-                height: 50,
-                width: 250,
-                onTap: () {
-                  _settingsStore.setLocale();
-                },
-                buttonTitle: Text(
-                  context.translate.changeLanguage,
-                  style: const TextStyle(color: AppColors.white, fontSize: 20),
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      
+      ),
     );
   }
 }
