@@ -17,12 +17,14 @@ class ShoppingListsView extends StatefulWidget {
   State<ShoppingListsView> createState() => _ShoppingListsViewState();
 }
 
-class _ShoppingListsViewState extends State<ShoppingListsView> {
+class _ShoppingListsViewState extends State<ShoppingListsView> with SingleTickerProviderStateMixin {
   final DateTime _today = DateTime.now();
 
   bool _isLoading = false;
   late ShoppingItemsStore _shoppingItemStore;
   late SettingsStore _settingsStore;
+
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -30,16 +32,24 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
     _shoppingItemStore =
         Provider.of<ShoppingItemsStore>(context, listen: false);
     _settingsStore = Provider.of<SettingsStore>(context, listen: false);
+    _animationController = AnimationController(duration:  const Duration(seconds: 3), vsync: this)..repeat();
     _loading(simulateLoading: widget.isLoading);
+  }
+
+  @override
+  void dispose(){
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return !_isLoading
-        ? const Scaffold(
+        ? Scaffold(
             body: Center(
               child: CircularProgressIndicator(
                 color: Colors.black,
+                valueColor: _animationController.drive(ColorTween(begin: Colors.greenAccent, end: Colors.amberAccent))
               ),
             ),
           )
@@ -91,7 +101,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
   Future<void> _loading({bool? simulateLoading}) {
     if (simulateLoading == true) {
       return Future.delayed(
-        const Duration(seconds: 2),
+        const Duration(seconds: 3),
         () => Future.wait([_shoppingItemStore.initHive()]).then(
           (_) {
             setState(() {
