@@ -6,7 +6,7 @@ import 'package:shopping_reminder/extensions/extensions.dart';
 import 'package:shopping_reminder/helpers/helpers.dart';
 
 class InfoAlertWidget extends StatelessWidget {
-  InfoAlertWidget({
+  const InfoAlertWidget({
     super.key,
     this.onTap,
     this.infoTitle,
@@ -19,7 +19,7 @@ class InfoAlertWidget extends StatelessWidget {
   final String? leftInfoButtonTitle;
   final String? rightInfoButtonTitle;
 
-  final MessageInfoService _messageService =
+  MessageInfoService get _messageService =>
       GetIt.instance<MessageInfoService>();
 
   @override

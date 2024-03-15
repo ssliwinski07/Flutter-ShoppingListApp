@@ -9,7 +9,9 @@ import 'package:shopping_reminder/widgets/widgets.dart';
 import 'package:shopping_reminder/extensions/extensions.dart';
 
 class ShoppingListsView extends StatefulWidget {
-  const ShoppingListsView({super.key});
+  const ShoppingListsView({super.key, this.isLoading});
+
+  final bool? isLoading;
 
   @override
   State<ShoppingListsView> createState() => _ShoppingListsViewState();
@@ -28,7 +30,7 @@ class _ShoppingListsViewState extends State<ShoppingListsView> {
     _shoppingItemStore =
         Provider.of<ShoppingItemsStore>(context, listen: false);
     _settingsStore = Provider.of<SettingsStore>(context, listen: false);
-    _loading(simulateLoading: false);
+    _loading(simulateLoading: widget.isLoading);
   }
 
   @override

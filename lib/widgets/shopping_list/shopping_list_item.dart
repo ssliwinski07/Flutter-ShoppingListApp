@@ -45,7 +45,6 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
       child: ListTile(
         leading: _isTappedForDeletion
             ? _GetDeleteIcon(
-                isTappedForDeletion: _isTappedForDeletion,
                 shoppingItemStore: _store,
                 item: _item,
                 messageInfoService: _messageService,
@@ -167,27 +166,24 @@ class _GetDeleteIcon extends StatelessWidget {
   const _GetDeleteIcon({
     required this.shoppingItemStore,
     required this.messageInfoService,
-    required this.isTappedForDeletion,
     required this.item,
     required this.onTapCallback,
   });
 
   final ShoppingItemsStore? shoppingItemStore;
   final MessageInfoService? messageInfoService;
-  final bool? isTappedForDeletion;
   final ShoppingItemModel? item;
   final OnTapCallback? onTapCallback;
 
   @override
   Widget build(BuildContext context) {
-    bool isTapped = isTappedForDeletion!;
+    
     return GestureDetector(
       onTap: () {
         try {
           shoppingItemStore!.removeFromList(item!);
-          isTapped = !isTapped;
           if (onTapCallback != null) {
-            onTapCallback!(isTapped);
+            onTapCallback!(false);
           }
           messageInfoService?.showMessage(
               context: context,

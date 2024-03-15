@@ -64,6 +64,8 @@ class _GetMainContentState extends State<_GetMainContent> {
   late SettingsStore _settingsStore;
   late MainScreenStore _mainScreenStore;
 
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
@@ -73,7 +75,9 @@ class _GetMainContentState extends State<_GetMainContent> {
 
   @override
   Widget build(BuildContext context) {
+    
     int range = _mainScreenStore.iconsDirectory.length;
+
     return Center(
       child: Container(
         height: 100.h,
@@ -108,10 +112,11 @@ class _GetMainContentState extends State<_GetMainContent> {
                 bool result = await Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => const ShoppingListsView(),
+                    pageBuilder: (_, __, ___) =>  ShoppingListsView(isLoading: _isLoading,),
                   ),
                 );
                 if (result == true) {
+                  _isLoading = false;
                   setState(() {});
                 }
               },
