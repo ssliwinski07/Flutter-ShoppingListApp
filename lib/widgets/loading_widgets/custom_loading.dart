@@ -5,7 +5,7 @@ class CustomLoading extends StatelessWidget {
   const CustomLoading.rectangular({
     super.key,
     required this.height,
-    required this.width,
+    this.width = double.infinity,
     required this.borderShape,
   });
 

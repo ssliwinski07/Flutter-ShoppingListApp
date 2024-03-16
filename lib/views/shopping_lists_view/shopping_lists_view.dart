@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import "package:sizer/sizer.dart";
 
 import 'package:shopping_reminder/helpers/helpers.dart';
 import 'package:shopping_reminder/mobx/stores.dart';
@@ -134,7 +133,6 @@ class _CustomLoading extends StatelessWidget {
           leading: const CustomLoading.circle(height: 25, width: 25),
           title: CustomLoading.rectangular(
             height: 25,
-            width: 25.h,
             borderShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),
