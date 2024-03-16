@@ -64,6 +64,7 @@ class _GetMainContentState extends State<_GetMainContent> {
   late SettingsStore _settingsStore;
   late MainScreenStore _mainScreenStore;
 
+  // ignore: prefer_final_fields
   bool _isLoading = true;
 
   @override
@@ -75,7 +76,6 @@ class _GetMainContentState extends State<_GetMainContent> {
 
   @override
   Widget build(BuildContext context) {
-    
     int range = _mainScreenStore.iconsDirectory.length;
 
     return Center(
@@ -112,12 +112,16 @@ class _GetMainContentState extends State<_GetMainContent> {
                 bool result = await Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (_, __, ___) =>  ShoppingListsView(isLoading: _isLoading,),
+                    pageBuilder: (_, __, ___) => ShoppingListsView(
+                      isLoading: _isLoading,
+                    ),
                   ),
                 );
                 if (result == true) {
                   _isLoading = false;
-                  setState(() {});
+                  if (mounted) {
+                    setState(() {});
+                  }
                 }
               },
               buttonTitle: Text(

@@ -30,7 +30,7 @@ class ShoppingList extends StatelessWidget {
               children: [
                 Observer(
                   builder: (_) => ListView.builder(
-                    padding: const EdgeInsets.only(bottom: 10.0, top: 5.0),
+                    padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
                     physics: const BouncingScrollPhysics(),
                     itemCount: store.shoppingItems!.length,
                     itemBuilder: (BuildContext context, int index) {
