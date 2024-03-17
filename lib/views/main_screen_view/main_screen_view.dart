@@ -118,7 +118,8 @@ class _GetMainContentState extends State<_GetMainContent> {
                   ),
                 );
                 if (result == true) {
-                  // _isLoading = false;
+                  // simulatre data loding to show shimmer effect only once when opening shopping list view
+                  _isLoading = false;
                   if (mounted) {
                     setState(() {});
                   }
