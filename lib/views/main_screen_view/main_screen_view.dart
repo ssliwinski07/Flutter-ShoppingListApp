@@ -118,7 +118,7 @@ class _GetMainContentState extends State<_GetMainContent> {
                   ),
                 );
                 if (result == true) {
-                  _isLoading = false;
+                  // _isLoading = false;
                   if (mounted) {
                     setState(() {});
                   }

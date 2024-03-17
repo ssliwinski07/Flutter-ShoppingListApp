@@ -129,7 +129,7 @@ class _CustomLoading extends StatelessWidget {
   Widget build(BuildContext context) => ListView.builder(
         padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
         itemCount: 10,
-        itemBuilder: (context, index) => ListTile(
+        itemBuilder: (context, index) => CustomListTile(
           leading: const CustomLoading.circle(height: 25, width: 25),
           title: CustomLoading.rectangular(
             height: 25,

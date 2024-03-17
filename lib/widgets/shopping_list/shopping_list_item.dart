@@ -40,45 +40,42 @@ class _ShoppingListItemState extends State<ShoppingListItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 80),
-      child: ListTile(
-        leading: _isTappedForDeletion
-            ? _GetDeleteIcon(
-                shoppingItemStore: _store,
-                item: _item,
-                messageInfoService: _messageService,
-                onTapCallback: (isTappedForDeletion) {
-                  _isTappedForDeletion = isTappedForDeletion;
-                },
-              )
-            : _GetCheckIcon(
-                isItemChecked: _isItemChecked,
-                shoppingItemsStore: _store,
-                messageInfoService: _messageService,
-                item: _item,
-              ),
-        title: GestureDetector(
-          onLongPress: _isTappedForDeletion
-              ? null
-              : () {
-                  _showUpdateItemDialog(
-                    shouldHideDialog: true,
-                    context: context,
-                    store: _store,
-                  );
-                },
-          onTap: () {
-            setState(() {});
-            _isTappedForDeletion = !_isTappedForDeletion;
-          },
-          child: Text(
-            widget.shoppingItem!.name,
-            maxLines: 100,
-            style: TextStyle(
-              color: _isItemChecked ? Colors.grey : Colors.black,
-              decoration: _isItemChecked ? TextDecoration.lineThrough : null,
+    return CustomListTile(
+      leading: _isTappedForDeletion
+          ? _GetDeleteIcon(
+              shoppingItemStore: _store,
+              item: _item,
+              messageInfoService: _messageService,
+              onTapCallback: (isTappedForDeletion) {
+                _isTappedForDeletion = isTappedForDeletion;
+              },
+            )
+          : _GetCheckIcon(
+              isItemChecked: _isItemChecked,
+              shoppingItemsStore: _store,
+              messageInfoService: _messageService,
+              item: _item,
             ),
+      title: GestureDetector(
+        onLongPress: _isTappedForDeletion
+            ? null
+            : () {
+                _showUpdateItemDialog(
+                  shouldHideDialog: true,
+                  context: context,
+                  store: _store,
+                );
+              },
+        onTap: () {
+          setState(() {});
+          _isTappedForDeletion = !_isTappedForDeletion;
+        },
+        child: Text(
+          widget.shoppingItem!.name,
+          maxLines: 100,
+          style: TextStyle(
+            color: _isItemChecked ? Colors.grey : Colors.black,
+            decoration: _isItemChecked ? TextDecoration.lineThrough : null,
           ),
         ),
       ),
@@ -177,7 +174,6 @@ class _GetDeleteIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return GestureDetector(
       onTap: () {
         try {
