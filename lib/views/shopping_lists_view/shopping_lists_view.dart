@@ -112,9 +112,11 @@ class _ShoppingListsViewState extends State<ShoppingListsView>
     }
     return Future.wait([_shoppingItemStore.initHive()]).then(
       (_) {
-        setState(() {
-          _isLoading = !_isLoading;
-        });
+        if (mounted) {
+          setState(() {
+            _isLoading = !_isLoading;
+          });
+        }
         _shoppingItemStore.getAllItems();
         _shoppingItemStore.getCheckedItems();
       },
