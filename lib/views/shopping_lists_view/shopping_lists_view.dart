@@ -93,34 +93,18 @@ class _ShoppingListsViewState extends State<ShoppingListsView>
     );
   }
 
-  Future<void> _loading({bool? simulateLoading}) {
+  Future<void> _loading({bool? simulateLoading}) async {
     if (simulateLoading == true) {
-      return Future.delayed(
-        const Duration(seconds: 6),
-        () => Future.wait([_shoppingItemStore.initHive()]).then(
-          (_) {
-            if (mounted) {
-              setState(() {
-                _isLoading = !_isLoading;
-              });
-            }
-            _shoppingItemStore.getAllItems();
-            _shoppingItemStore.getCheckedItems();
-          },
-        ),
-      );
+      await Future.delayed(const Duration(seconds: 6));
     }
-    return Future.wait([_shoppingItemStore.initHive()]).then(
-      (_) {
-        if (mounted) {
-          setState(() {
-            _isLoading = !_isLoading;
-          });
-        }
-        _shoppingItemStore.getAllItems();
-        _shoppingItemStore.getCheckedItems();
-      },
-    );
+    await _shoppingItemStore.initHive();
+    _shoppingItemStore.getAllItems();
+    _shoppingItemStore.getCheckedItems();
+
+    if (mounted) {
+      _isLoading = !_isLoading;
+      setState(() {});
+    }
   }
 }
 
