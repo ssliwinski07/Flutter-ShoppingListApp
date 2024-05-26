@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import "package:flutter_mobx/flutter_mobx.dart";
 import 'package:intl/date_symbol_data_local.dart';
 import "package:provider/provider.dart";
 import "package:sizer/sizer.dart";
@@ -22,24 +21,68 @@ class _MainScreenViewState extends State<MainScreenView> {
   late SettingsStore settingsStore;
 
   @override
-  void initState() {
-    super.initState();
-    _loadingScreen();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => Scaffold(
-        body: settingsStore.isLoading
-            ? const Center(
-                child: LoadingScreenAnimatedIcon(
+    return Scaffold(
+      body: FutureBuilder(
+          future: _loadingScreen(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 90,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 2.h),
+                        child: Text(context.translate.initError),
+                      ),
+                      if (snapshot.error == null)
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 2.h),
+                              child:
+                                  Text('${context.translate.moreInfoBelow}:'),
+                            ),
+                            Text('${snapshot.error}')
+                          ],
+                        ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.h),
+                        child: IconButton(
+                          onPressed: () => _reload(),
+                          icon: const Icon(
+                            Icons.refresh,
+                            size: 50,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return const _GetMainContent();
+            } else {
+              return const Center(
+                  child: LoadingScreenAnimatedIcon(
                 iconScale: 10,
                 iconDirectory: MAIN_SCREEN_LOADING_ICON_DIR,
-              ))
-            : const _GetMainContent(),
-      ),
+              ));
+            }
+          }),
     );
+  }
+
+  void _reload() {
+    if (mounted) {
+      _loadingScreen();
+      setState(() {});
+    }
   }
 
   Future _loadingScreen() async {
@@ -50,7 +93,6 @@ class _MainScreenViewState extends State<MainScreenView> {
       initializeDateFormatting(LocaleFormats.getLocale()),
       settingsStore.initializeLocale(),
     ]);
-    settingsStore.isLoadingToggle();
   }
 }
 

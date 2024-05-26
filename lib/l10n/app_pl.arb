@@ -15,5 +15,7 @@
 "itemDeleted" : "Usunięto element",
 "errorMessage" : "Wystąpił błąd",
 "itemsDeleted" : "Usunięto wszystkie elementy",
-"changeLanguage" : "Zmień język aplikacji"
+"changeLanguage" : "Zmień język aplikacji",
+"initError" : "Wystąpił błąd podczas inicjalizacji danych",
+"moreInfoBelow" : "Szczegóły poniżej"
 }

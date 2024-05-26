@@ -25,22 +25,6 @@ mixin _$SettingsStore on SettingsStoreBase, Store {
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: 'SettingsStoreBase.isLoading', context: context);
-
-  @override
-  bool get isLoading {
-    _$isLoadingAtom.reportRead();
-    return super.isLoading;
-  }
-
-  @override
-  set isLoading(bool value) {
-    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
-      super.isLoading = value;
-    });
-  }
-
   late final _$initializeLocaleAsyncAction =
       AsyncAction('SettingsStoreBase.initializeLocale', context: context);
 
@@ -64,21 +48,9 @@ mixin _$SettingsStore on SettingsStoreBase, Store {
   }
 
   @override
-  void isLoadingToggle() {
-    final _$actionInfo = _$SettingsStoreBaseActionController.startAction(
-        name: 'SettingsStoreBase.isLoadingToggle');
-    try {
-      return super.isLoadingToggle();
-    } finally {
-      _$SettingsStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
-locale: ${locale},
-isLoading: ${isLoading}
+locale: ${locale}
     ''';
   }
 }
