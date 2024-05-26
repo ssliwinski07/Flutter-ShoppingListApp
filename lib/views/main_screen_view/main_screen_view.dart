@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:flutter_mobx/flutter_mobx.dart";
 import 'package:intl/date_symbol_data_local.dart';
 import "package:provider/provider.dart";
 import "package:sizer/sizer.dart";
@@ -18,7 +19,6 @@ class MainScreenView extends StatefulWidget {
 }
 
 class _MainScreenViewState extends State<MainScreenView> {
-  bool _isLoading = true;
   late SettingsStore settingsStore;
 
   @override
@@ -29,14 +29,16 @@ class _MainScreenViewState extends State<MainScreenView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _isLoading
-          ? const Center(
-              child: LoadingScreenAnimatedIcon(
-              iconScale: 10,
-              iconDirectory: MAIN_SCREEN_LOADING_ICON_DIR,
-            ))
-          : const _GetMainContent(),
+    return Observer(
+      builder: (_) => Scaffold(
+        body: settingsStore.isLoading
+            ? const Center(
+                child: LoadingScreenAnimatedIcon(
+                iconScale: 10,
+                iconDirectory: MAIN_SCREEN_LOADING_ICON_DIR,
+              ))
+            : const _GetMainContent(),
+      ),
     );
   }
 
@@ -48,12 +50,7 @@ class _MainScreenViewState extends State<MainScreenView> {
       initializeDateFormatting(LocaleFormats.getLocale()),
       settingsStore.initializeLocale(),
     ]);
-
-    if (mounted) {
-      setState(() {
-        _isLoading = !_isLoading;
-      });
-    }
+    settingsStore.isLoadingToggle();
   }
 }
 

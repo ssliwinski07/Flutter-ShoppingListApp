@@ -18,6 +18,9 @@ abstract class SettingsStoreBase with Store {
   @observable
   Locale? locale;
 
+  @observable
+  bool isLoading = true;
+
   @action
   void setLocale() {
     if (locale == const Locale(plLanguage)) {
@@ -33,5 +36,10 @@ abstract class SettingsStoreBase with Store {
   Future<void> initializeLocale() async {
     String languageCode = await settingsService.getString(key: languageKey);
     locale = Locale(languageCode);
+  }
+
+  @action
+  void isLoadingToggle() {
+    isLoading = !isLoading;
   }
 }
