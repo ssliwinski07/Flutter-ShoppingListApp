@@ -10,7 +10,6 @@ import "mobx/stores.dart";
 import "views/views.dart";
 
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
 
   ServiceLocator serviceLocator = ServiceLocator();
@@ -32,7 +31,9 @@ void main() async {
       providers: [
         Provider<ShoppingItemsStore>(create: (context) => ShoppingItemsStore()),
         Provider<MainScreenStore>(create: (context) => MainScreenStore()),
-        Provider<SettingsStore>(create: (context) =>  SettingsStore(settingsService: settingsService))
+        Provider<SettingsStore>(
+          create: (context) => SettingsStore(settingsService: settingsService),
+        )
       ],
       child: const MyApp(),
     ),
@@ -40,25 +41,50 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-   const MyApp({super.key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    SettingsStore settingsStore = Provider.of<SettingsStore>(context, listen: false);
-    
-    settingsStore.initializeLocale();
+    SettingsStore settingsStore =
+        Provider.of<SettingsStore>(context, listen: false);
 
-    return Sizer(
-      builder: (context, orientation, deviceType) => Observer(
-        builder: (context) => MaterialApp(
-          home: const MainScreenView(),
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          locale: settingsStore.locale,
+    return _InitWidget(
+      child: Sizer(
+        builder: (context, orientation, deviceType) => Observer(
+          builder: (context) => MaterialApp(
+            home: const MainScreenView(),
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            locale: settingsStore.locale,
+          ),
         ),
       ),
     );
   }
+}
 
+class _InitWidget extends StatefulWidget {
+  const _InitWidget({required this.child});
+
+  final Widget child;
+
+  @override
+  State<_InitWidget> createState() => _InitWidgetState();
+}
+
+class _InitWidgetState extends State<_InitWidget> {
+  late SettingsStore settingsStore;
+
+  @override
+  void initState() {
+    super.initState();
+    settingsStore = Provider.of<SettingsStore>(context, listen: false);
+    settingsStore.initializeLocale();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
 }
