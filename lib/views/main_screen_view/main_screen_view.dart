@@ -43,17 +43,17 @@ class _MainScreenViewState extends State<MainScreenView> {
   Future _loadingScreen() async {
     settingsStore = Provider.of<SettingsStore>(context, listen: false);
 
-    Future.wait([
+    await Future.delayed(const Duration(seconds: 4)); // fake loading
+    await Future.wait([
       initializeDateFormatting(LocaleFormats.getLocale()),
       settingsStore.initializeLocale(),
-      Future.delayed(const Duration(seconds: 5))
-    ]).whenComplete(() {
-      if (mounted) {
-        setState(() {
-          _isLoading = !_isLoading;
-        });
-      }
-    });
+    ]);
+
+    if (mounted) {
+      setState(() {
+        _isLoading = !_isLoading;
+      });
+    }
   }
 }
 
