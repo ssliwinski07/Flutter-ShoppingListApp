@@ -34,45 +34,46 @@ class _MainScreenViewState extends State<MainScreenView> {
           future: _loading,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              //if (snapshot.hasError) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Icon(
-                      Icons.error_outline,
-                      color: Colors.red,
-                      size: 90,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 2.h),
-                      child: Text(context.translate.initError),
-                    ),
-                    if (snapshot.error == null)
-                      Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(top: 2.h),
-                            child: Text('${context.translate.moreInfoBelow}:'),
-                          ),
-                          Text('${snapshot.error}')
-                        ],
+              if (snapshot.hasError) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: 90,
                       ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 5.h),
-                      child: IconButton(
-                        onPressed: _reload,
-                        icon: const Icon(
-                          Icons.refresh,
-                          size: 50,
+                      Padding(
+                        padding: EdgeInsets.only(top: 2.h),
+                        child: Text(context.translate.initError),
+                      ),
+                      if (snapshot.error == null)
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 2.h),
+                              child:
+                                  Text('${context.translate.moreInfoBelow}:'),
+                            ),
+                            Text('${snapshot.error}')
+                          ],
                         ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-              //}
-              //return const _GetMainContent();
+                      Padding(
+                        padding: EdgeInsets.only(top: 5.h),
+                        child: IconButton(
+                          onPressed: _reload,
+                          icon: const Icon(
+                            Icons.refresh,
+                            size: 50,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+              return const _GetMainContent();
             } else {
               return const Center(
                   child: LoadingScreenAnimatedIcon(
