@@ -118,12 +118,9 @@ class _GetMainContentState extends State<_GetMainContent> {
                     ),
                   ),
                 );
-                if (result == true) {
-                  // simulate data loading to show shimmer effect only once when opening shopping list view
-                  if (mounted) {
-                    _isLoading = false;
-                    setState(() {});
-                  }
+                // simulate data loading to show shimmer effect only once when opening shopping list view
+                if (result == true || _isLoading) {
+                  _isLoading = false;
                 }
               },
               buttonTitle: Text(
