@@ -19,6 +19,7 @@ class MainScreenView extends StatefulWidget {
 
 class _MainScreenViewState extends State<MainScreenView> {
   bool _isLoading = true;
+  late SettingsStore settingsStore;
 
   @override
   void initState() {
@@ -40,10 +41,13 @@ class _MainScreenViewState extends State<MainScreenView> {
   }
 
   Future _loadingScreen() async {
+    settingsStore = Provider.of<SettingsStore>(context, listen: false);
+
     Future.wait([
       initializeDateFormatting(LocaleFormats.getLocale()),
+      settingsStore.initializeLocale(),
       Future.delayed(const Duration(seconds: 5))
-    ]).then((_) {
+    ]).whenComplete(() {
       if (mounted) {
         setState(() {
           _isLoading = !_isLoading;

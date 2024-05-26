@@ -48,43 +48,16 @@ class MyApp extends StatelessWidget {
     SettingsStore settingsStore =
         Provider.of<SettingsStore>(context, listen: false);
 
-    return _InitWidget(
-      child: Sizer(
-        builder: (context, orientation, deviceType) => Observer(
-          builder: (context) => MaterialApp(
-            home: const MainScreenView(),
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            locale: settingsStore.locale,
-          ),
+    return Sizer(
+      builder: (context, orientation, deviceType) => Observer(
+        builder: (context) => MaterialApp(
+          home: const MainScreenView(),
+          debugShowCheckedModeBanner: false,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: settingsStore.locale,
         ),
       ),
     );
-  }
-}
-
-class _InitWidget extends StatefulWidget {
-  const _InitWidget({required this.child});
-
-  final Widget child;
-
-  @override
-  State<_InitWidget> createState() => _InitWidgetState();
-}
-
-class _InitWidgetState extends State<_InitWidget> {
-  late SettingsStore settingsStore;
-
-  @override
-  void initState() {
-    super.initState();
-    settingsStore = Provider.of<SettingsStore>(context, listen: false);
-    settingsStore.initializeLocale();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
   }
 }
