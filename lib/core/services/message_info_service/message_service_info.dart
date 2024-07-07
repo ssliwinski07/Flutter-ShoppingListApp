@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:shopping_reminder/helpers/helpers.dart';
 
-abstract class MessageInfoService {
+abstract interface class MessageInfoService {
   void showMessage({
     BuildContext? context,
     String? infoMessage,

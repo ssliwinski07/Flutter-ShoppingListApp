@@ -6,7 +6,6 @@ import 'package:shopping_reminder/widgets/widgets.dart';
 class ServiceLocator {
   GetIt serviceLocator = GetIt.instance;
 
-
   //Core Service locators
   Future<void> serviceLocatorInit() async {
     serviceLocator.registerSingleton<HiveService>(HiveService());
